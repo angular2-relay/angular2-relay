@@ -1,7 +1,7 @@
 import Relay from 'generic-relay';
 import { Component, Input, View } from 'angular2/core';
 
-import { StarWarsShip, StarWarsShipContainer } from './Ng2StarWarsShip';
+import { StarWarsShip, StarWarsShipContainer } from './StarWarsShip';
 
 const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
   fragments: {
@@ -31,7 +31,7 @@ const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
       <li *ngFor="#faction of relayData.factions;">
         {{ faction.name }}
         <ul>
-          <li *ngFor="#edge of faction.ships.edges">            
+          <li *ngFor="#edge of faction.ships.edges">
             <star-wars-ship [relayProps]="edge.node" [route]="route"></star-wars-ship>
           </li>
         </ul>

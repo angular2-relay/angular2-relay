@@ -10,7 +10,7 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2
 import Relay from 'generic-relay';
 import StarWarsAppHomeRoute from './routes/StarWarsAppHomeRoute';
 
-import { StarWarsApp, StarWarsAppContainer } from './components/Ng2StarWarsApp';
+import { StarWarsApp, StarWarsAppContainer } from './components/StarWarsApp';
 
 @Component({
   selector: 'app'
