@@ -35,8 +35,12 @@ var compiler = webpack({
       {
         exclude: /node_modules/,
         loader: 'babel',
-        query: {stage: 0, plugins: ['./build/babelRelayPlugin', 'angular2-annotations']},
-        test: /\.js$/,
+        query: {
+          'presets': ['es2015'],
+          'plugins': ['./build/babelRelayPlugin', 'angular2-annotations',
+           'transform-decorators-legacy', 'transform-class-properties','transform-flow-strip-types']
+        },
+        test: /\.js$/
       },
     ],
   },

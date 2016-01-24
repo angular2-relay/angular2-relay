@@ -1,6 +1,6 @@
 import 'zone.js/lib/browser/zone-microtask';
 import 'reflect-metadata';
-import 'babel/polyfill';
+import 'babel-polyfill';
 
 import { provide, Component, View, NgZone } from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
