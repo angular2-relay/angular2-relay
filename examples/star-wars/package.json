@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "babel-plugin-angular2-annotations": "2.0.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-polyfill": "^6.3.14",
+    "babylon": "^5.8.35",
     "eslint": "^1.10.3"
   }
 }
