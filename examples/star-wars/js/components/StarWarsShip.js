@@ -16,8 +16,8 @@ const StarWarsShipContainer = Relay.createGenericContainer('StarWarsShip', {
   template: `<div>{{ ship.name }}</div>`
 })
 class StarWarsShip {
-  @Input() route = '';
-  @Input() relayProps = '';
+  @Input() route;
+  @Input() relayProps;
 
   constructor() {
     this.ship = {};

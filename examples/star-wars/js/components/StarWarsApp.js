@@ -39,8 +39,8 @@ const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
     </ul>`
 })
 class StarWarsApp {
-  @Input() relayProps = '';
-  @Input() route = '';
+  @Input() relayProps;
+  @Input() route;
 
   constructor() {
     this.relayData = {};
