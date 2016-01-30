@@ -2,6 +2,7 @@ import Relay from 'generic-relay';
 import { Component, Input, View, InputMetadata } from 'angular2/core';
 
 import { StarWarsShip, StarWarsShipContainer } from './StarWarsShip';
+import connectRelay from '../connectRelay';
 
 const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
   fragments: {
@@ -38,7 +39,7 @@ const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
       </li>
     </ul>`
 })
-@myannotation()
+@connectRelay()
 class StarWarsApp {
 
   constructor() {
@@ -49,29 +50,10 @@ class StarWarsApp {
     this.starWarsAppContainer = new StarWarsAppContainer(updateListener);
   }
 
-  ngOnChanges(newState) {
-    const route = newState.route ? newState.route.currentValue : this.route;
-    const relayProps = newState.relayProps ? newState.relayProps.currentValue : this.relayProps;
-
-    if (route && relayProps) {
-      this.starWarsAppContainer.update({route: route, fragmentInput: relayProps});
-    }
+  ngOnChanges(newState, a) {
+    console.log(newState, a);
   }
 
 }
 
 export { StarWarsAppContainer, StarWarsApp };
-
-
-function myannotation() {
-  // Add a property on target
-  return (target) => {
-    Reflect.defineMetadata('propMetadata', {
-      relayProps: [new InputMetadata()],
-      route: [new InputMetadata()]
-    }, target);
-    return target;
-  };
-}
-
-console.log(StarWarsApp);
