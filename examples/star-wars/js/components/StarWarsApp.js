@@ -33,7 +33,7 @@ const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
         {{ faction.name }}
         <ul>
           <li *ngFor="#edge of faction.ships.edges">
-            <star-wars-ship [relayProps]="edge.node" [route]="route"></star-wars-ship>
+            <star-wars-ship [relayProps]="{ship: edge.node}" [route]="route"></star-wars-ship>
           </li>
         </ul>
       </li>
@@ -44,14 +44,11 @@ class StarWarsApp {
 
   constructor() {
     this.relayData = {};
+
     const updateListener = (state) => {
       this.relayData = state.data;
     };
-    this.starWarsAppContainer = new StarWarsAppContainer(updateListener);
-  }
-
-  ngOnChanges(newState, a) {
-    console.log(newState, a);
+    this.container = new StarWarsAppContainer(updateListener);
   }
 
 }

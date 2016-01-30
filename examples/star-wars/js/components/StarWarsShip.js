@@ -1,5 +1,6 @@
 import Relay from 'generic-relay';
 import { Component, Input } from 'angular2/core';
+import connectRelay from '../connectRelay';
 
 const StarWarsShipContainer = Relay.createGenericContainer('StarWarsShip', {
   fragments: {
@@ -13,29 +14,20 @@ const StarWarsShipContainer = Relay.createGenericContainer('StarWarsShip', {
 
 @Component({
   selector: 'star-wars-ship',
-  template: `<div>{{ ship.name }}</div>`
+  template: `<div>{{ relayData.ship.name }}</div>`
 })
+@connectRelay()
 class StarWarsShip {
-  @Input() route;
-  @Input() relayProps;
 
   constructor() {
-    this.ship = {};
+    this.relayData = {};
 
     const updateListener = (state) => {
-      this.ship = state.data.ship;
+      this.relayData = state.data;
     };
-    this.starWarsShipContainer = new StarWarsShipContainer(updateListener);
+    this.container = new StarWarsShipContainer(updateListener);
   }
 
-  ngOnChanges(newState) {
-    const route = newState.route ? newState.route.currentValue : this.route;
-    const relayProps = newState.relayProps ? newState.relayProps.currentValue : this.relayProps;
-
-    if (route && relayProps) {
-      this.starWarsShipContainer.update({ route: route, fragmentInput: {ship: relayProps} });
-    }
-  }
 }
 
 export { StarWarsShipContainer, StarWarsShip };

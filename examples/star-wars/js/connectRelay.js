@@ -14,9 +14,11 @@ export default function connectRelay() {
       const relayProps = newState.relayProps ? newState.relayProps.currentValue : this.relayProps;
 
       if (route && relayProps) {
-        this.starWarsAppContainer.update({route: route, fragmentInput: relayProps});
+        this.container.update({route: route, fragmentInput: relayProps});
       }
-      changeFn.call(this, newState, 'hello');
+      if (changeFn) {
+        changeFn.call(this, newState, 'hello');        
+      }
     };
 
     target.prototype.ngOnChanges = ngOnChanges;
