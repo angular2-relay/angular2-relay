@@ -16,16 +16,11 @@ const StarWarsShipContainer = Relay.createGenericContainer('StarWarsShip', {
   selector: 'star-wars-ship',
   template: `<div>{{ relayData.ship.name }}</div>`
 })
-@connectRelay()
+@connectRelay({container: StarWarsShipContainer})
 class StarWarsShip {
 
   constructor() {
-    this.relayData = {};
-
-    const updateListener = (state) => {
-      this.relayData = state.data;
-    };
-    this.container = new StarWarsShipContainer(updateListener);
+    this.initWithRelay();
   }
 
 }

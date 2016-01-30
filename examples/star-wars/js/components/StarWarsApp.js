@@ -39,18 +39,11 @@ const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
       </li>
     </ul>`
 })
-@connectRelay()
+@connectRelay({container: StarWarsAppContainer})
 class StarWarsApp {
-
   constructor() {
-    this.relayData = {};
-
-    const updateListener = (state) => {
-      this.relayData = state.data;
-    };
-    this.container = new StarWarsAppContainer(updateListener);
+    this.initWithRelay();
   }
-
 }
 
 export { StarWarsAppContainer, StarWarsApp };
