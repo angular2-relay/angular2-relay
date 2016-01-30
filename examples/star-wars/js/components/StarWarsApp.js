@@ -1,5 +1,5 @@
 import Relay from 'generic-relay';
-import { Component, Input, View } from 'angular2/core';
+import { Component, Input, View, InputMetadata } from 'angular2/core';
 
 import { StarWarsShip, StarWarsShipContainer } from './StarWarsShip';
 
@@ -38,9 +38,8 @@ const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
       </li>
     </ul>`
 })
+@myannotation()
 class StarWarsApp {
-  @Input() relayProps;
-  @Input() route;
 
   constructor() {
     this.relayData = {};
@@ -51,7 +50,6 @@ class StarWarsApp {
   }
 
   ngOnChanges(newState) {
-
     const route = newState.route ? newState.route.currentValue : this.route;
     const relayProps = newState.relayProps ? newState.relayProps.currentValue : this.relayProps;
 
@@ -63,3 +61,17 @@ class StarWarsApp {
 }
 
 export { StarWarsAppContainer, StarWarsApp };
+
+
+function myannotation() {
+  // Add a property on target
+  return (target) => {
+    Reflect.defineMetadata('propMetadata', {
+      relayProps: [new InputMetadata()],
+      route: [new InputMetadata()]
+    }, target);
+    return target;
+  };
+}
+
+console.log(StarWarsApp);
