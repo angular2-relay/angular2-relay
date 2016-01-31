@@ -2,7 +2,7 @@ import Relay from 'generic-relay';
 import { Component, Input, View, InputMetadata } from 'angular2/core';
 
 import { StarWarsShip, StarWarsShipContainer } from './StarWarsShip';
-import connectRelay from '../connectRelay';
+import {connectRelay} from 'angular2-relay';
 
 const StarWarsAppContainer = Relay.createGenericContainer('StarWarsApp', {
   fragments: {

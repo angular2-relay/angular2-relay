@@ -1,0 +1,36 @@
+{
+  "name": "angular2-relay",
+  "version": "0.1.0",
+  "description": "Angular2 support for Relay",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andimarek/angular2-relay.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andimarek/angular2-relay/issues"
+  },
+  "homepage": "https://github.com/andimarek/angular2-relay#readme",
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/angular2-relay.js",
+  "scripts": {
+    "build": "gulp",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "0.1.2",
+    "angular2": "^2.0.0-beta.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1"
+  }
+}

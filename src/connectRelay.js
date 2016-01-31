@@ -1,6 +1,6 @@
 import { InputMetadata } from 'angular2/core';
 
-export default function connectRelay(config) {
+export function connectRelay(config) {
   return (target) => {
 
     Reflect.defineMetadata('propMetadata', {
