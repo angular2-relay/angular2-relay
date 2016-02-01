@@ -1,0 +1,23 @@
+type Event implements Node {
+  id: ID!
+}
+
+interface Node {
+  id: ID!
+}
+
+type Query {
+  root: Root
+  node(id: ID!): Node
+}
+
+type Root {
+  user: User
+  availableEvents: [Event]
+}
+
+type User implements Node {
+  id: ID!
+  firstName: String
+  lastName: String
+}
