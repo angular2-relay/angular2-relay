@@ -51,6 +51,7 @@ const theOnlyUser = {
     id: '1',
     firstName: 'Lisa',
     lastName: 'Simpson',
+    events: ['1','3','6']
 };
 
 export function getUser(){
@@ -59,4 +60,8 @@ export function getUser(){
 
 export function getEvent(id) {
   return events[id];
+}
+
+export function getAvailableEvents(){
+  return Object.keys(events).map( (id) => events[id]);
 }

@@ -19,7 +19,8 @@ import {
 
 import {
   getUser,
-  getEvent
+  getEvent,
+  getAvailableEvents
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -38,72 +39,29 @@ var {nodeInterface, nodeField} = nodeDefinitions(
   }
 );
 
-// var shipType = new GraphQLObjectType({
-//   name: 'Ship',
-//   description: 'A ship in the Star Wars saga',
-//   fields: () => ({
-//     id: globalIdField('Ship'),
-//     name: {
-//       type: GraphQLString,
-//       description: 'The name of the ship.',
-//     },
-//   }),
-//   interfaces: [nodeInterface],
-// });
-//
-// /**
-//  * We define a connection between a faction and its ships.
-//  *
-//  * connectionType implements the following type system shorthand:
-//  *   type ShipConnection {
-//  *     edges: [ShipEdge]
-//  *     pageInfo: PageInfo!
-//  *   }
-//  *
-//  * connectionType has an edges field - a list of edgeTypes that implement the
-//  * following type system shorthand:
-//  *   type ShipEdge {
-//  *     cursor: String!
-//  *     node: Ship
-//  *   }
-//  */
-// var {connectionType: shipConnection} =
-//   connectionDefinitions({name: 'Ship', nodeType: shipType});
-//
-// var factionType = new GraphQLObjectType({
-//   name: 'Faction',
-//   description: 'A faction in the Star Wars saga',
-//   fields: () => ({
-//     id: globalIdField('Faction'),
-//     name: {
-//       type: GraphQLString,
-//       description: 'The name of the faction.',
-//     },
-//     ships: {
-//       type: shipConnection,
-//       description: 'The ships used by the faction.',
-//       args: connectionArgs,
-//       resolve: (faction, args) => connectionFromArray(
-//         faction.ships.map((id) => getShip(id)),
-//         args
-//       ),
-//     },
-//   }),
-//   interfaces: [nodeInterface],
-// });
-
 const eventType = new GraphQLObjectType({
   name: 'Event',
   description: 'Some cool event',
   fields: () => ({
-     id: globalIdField('Event')
+     id: globalIdField('Event'),
+     name: {
+       type: GraphQLString
+     },
+     description: {
+       type: GraphQLString
+     },
+     date: {
+       type: GraphQLString
+     }
   }),
   interfaces: [nodeInterface]
 });
 
+var {connectionType: eventConnection} =
+  connectionDefinitions({name: 'Event', nodeType: eventType});
+
 const userType = new GraphQLObjectType({
   name: 'User',
-  description: 'The user of our system',
   fields: () => ({
     id: globalIdField('User'),
     firstName: {
@@ -111,6 +69,13 @@ const userType = new GraphQLObjectType({
     },
     lastName: {
       type: GraphQLString
+    },
+    events : {
+      type: eventConnection,
+      args: connectionArgs,
+      resolve: (user, args) => connectionFromArray(
+              user.events.map((id) => getEvent(id)),
+              args),
     }
   }),
   interfaces: [nodeInterface]
@@ -126,7 +91,8 @@ const rootType = new GraphQLObjectType({
       resolve: () => getUser()
     },
     availableEvents: {
-      type: new GraphQLList(eventType)
+      type: new GraphQLList(eventType),
+      resolve: () => getAvailableEvents()
     }
   })
 });
