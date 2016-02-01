@@ -8,25 +8,25 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2
 
 
 import Relay from 'generic-relay';
-import StarWarsAppHomeRoute from './routes/StarWarsAppHomeRoute';
+import EventPlannerAppHomeRoute from './routes/EventPlannerAppHomeRoute';
 
-import { StarWarsApp, StarWarsAppContainer } from './components/StarWarsApp';
+import { EventPlannerApp, EventPlannerAppContainer } from './components/EventPlannerApp';
 
 @Component({
   selector: 'app'
 })
 @View({
-  directives: [StarWarsApp],
+  directives: [EventPlannerApp],
   template: `
-    <h1>Star Wars App</h1>
-    <star-wars-app [relayProps]="relayProps" [route]="route"></star-wars-app>
+  <div>
+    <h1>Event Planner</h1>
+    <event-planner-app [relayProps]="relayProps" [route]="route"></event-planner-app>
+  </div>
   `
 })
 class App {
   constructor(ngZone: NgZone) {
-    const route = new StarWarsAppHomeRoute({
-      factionNames: ['empire', 'rebels'],
-    });
+    const route = new EventPlannerAppHomeRoute();
 
     const listener = ({data}) => {
       ngZone.run(() => {
@@ -35,7 +35,7 @@ class App {
     };
 
     const rootContainer = new Relay.GenericRootContainer(listener);
-    rootContainer.update(StarWarsAppContainer, route);
+    rootContainer.update(EventPlannerAppContainer, route);
 
     this.route = route;
   }

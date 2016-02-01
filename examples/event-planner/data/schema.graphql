@@ -1,9 +1,44 @@
+input AttendEventInput {
+  eventId: ID!
+  clientMutationId: String!
+}
+
+type AttendEventPayload {
+  event: Event
+  user: User
+  clientMutationId: String!
+}
+
 type Event implements Node {
   id: ID!
+  name: String
+  description: String
+  date: String
+}
+
+type EventConnection {
+  pageInfo: PageInfo!
+  edges: [EventEdge]
+}
+
+type EventEdge {
+  node: Event
+  cursor: String!
+}
+
+type Mutation {
+  attendEvent(input: AttendEventInput!): AttendEventPayload
 }
 
 interface Node {
   id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
 }
 
 type Query {
@@ -20,4 +55,5 @@ type User implements Node {
   id: ID!
   firstName: String
   lastName: String
+  events(after: String, first: Int, before: String, last: Int): EventConnection
 }
