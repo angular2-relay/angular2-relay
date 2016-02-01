@@ -20,7 +20,8 @@ import {
 import {
   getUser,
   getEvent,
-  getAvailableEvents
+  getAvailableEvents,
+  attendEvent
 } from './database';
 
 var {nodeInterface, nodeField} = nodeDefinitions(
@@ -108,68 +109,39 @@ const queryType = new GraphQLObjectType({
   }),
 });
 
-/**
- * This will return a GraphQLFieldConfig for our ship mutation.
- *
- * It creates these two types implicitly:
- *   input IntroduceShipInput {
- *     clientMutationId: string!
- *     shipName: string!
- *     factionId: ID!
- *   }
- *
- *   input IntroduceShipPayload {
- *     clientMutationId: string!
- *     ship: Ship
- *     faction: Faction
- *   }
- */
-// var shipMutation = mutationWithClientMutationId({
-//   name: 'IntroduceShip',
-//   inputFields: {
-//     shipName: {
-//       type: new GraphQLNonNull(GraphQLString),
-//     },
-//     factionId: {
-//       type: new GraphQLNonNull(GraphQLID),
-//     },
-//   },
-//   outputFields: {
-//     ship: {
-//       type: shipType,
-//       resolve: (payload) => getShip(payload.shipId),
-//     },
-//     faction: {
-//       type: factionType,
-//       resolve: (payload) => getFaction(payload.factionId),
-//     },
-//   },
-//   mutateAndGetPayload: ({shipName, factionId}) => {
-//     var newShip = createShip(shipName, factionId);
-//     return {
-//       shipId: newShip.id,
-//       factionId: factionId,
-//     };
-//   },
-// });
+var eventMutation = mutationWithClientMutationId({
+  name: 'AttendEvent',
+  inputFields: {
+    eventId: {
+      type: new GraphQLNonNull(GraphQLID),
+    },
+  },
+  outputFields: {
+    event: {
+      type: eventType,
+      resolve: (payload) => getEvent(payload.eventId)
+    },
+    user: {
+      type: userType,
+      resolve: () => getUser()
+    },
+  },
+  mutateAndGetPayload: ({eventId}) => {
+    attendEvent(eventId)
+    return {
+      eventId: eventId
+    };
+  },
+});
 
-// /**
-//  * This is the type that will be the root of our mutations,
-//  * and the entry point into performing writes in our schema.
-//  *
-//  * This implements the following type system shorthand:
-//  *   type Mutation {
-//  *     introduceShip(input: IntroduceShipInput!): IntroduceShipPayload
-//  *   }
-//  */
-// var mutationType = new GraphQLObjectType({
-//   name: 'Mutation',
-//   fields: () => ({
-//     introduceShip: shipMutation,
-//   }),
-// });
+var mutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    attendEvent: eventMutation,
+  }),
+});
 
 export var schema = new GraphQLSchema({
-  query: queryType
-  // mutation: mutationType,
+  query: queryType,
+  mutation: mutationType,
 });

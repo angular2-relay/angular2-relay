@@ -62,6 +62,10 @@ export function getEvent(id) {
   return events[id];
 }
 
+export function attendEvent(id){
+  theOnlyUser.events.push(id);
+}
+
 export function getAvailableEvents(){
   return Object.keys(events).map( (id) => events[id]);
 }
