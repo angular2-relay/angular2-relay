@@ -5,6 +5,7 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
+  GraphQLInt
 } from 'graphql';
 
 import {
@@ -53,6 +54,9 @@ const eventType = new GraphQLObjectType({
      },
      date: {
        type: GraphQLString
+     },
+     going: {
+       type: GraphQLInt
      }
   }),
   interfaces: [nodeInterface]
