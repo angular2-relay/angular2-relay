@@ -32,7 +32,7 @@ const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
       <div>
         Events you attend:
         <div *ngFor="#edge of getUser().events.edges">
-          <strong>{{ edge.node.name }}</strong> with {{ edge.node.going}} others
+          <strong>{{ edge.node.name }}</strong> with {{ edge.node.going - 1}} others
         </div>
       </div>
     </div>
