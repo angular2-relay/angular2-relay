@@ -5,7 +5,8 @@ import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLBoolean,
 } from 'graphql';
 
 import {
@@ -45,19 +46,22 @@ const eventType = new GraphQLObjectType({
   name: 'Event',
   description: 'Some cool event',
   fields: () => ({
-     id: globalIdField('Event'),
-     name: {
-       type: GraphQLString
-     },
-     description: {
-       type: GraphQLString
-     },
-     date: {
-       type: GraphQLString
-     },
-     going: {
-       type: GraphQLInt
-     }
+    id: globalIdField('Event'),
+    name: {
+      type: GraphQLString
+    },
+    description: {
+      type: GraphQLString
+    },
+    date: {
+      type: GraphQLString
+    },
+    going: {
+      type: GraphQLInt
+    },
+    userIsAttending: {
+      type: GraphQLBoolean
+    }
   }),
   interfaces: [nodeInterface]
 });

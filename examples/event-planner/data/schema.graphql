@@ -15,6 +15,7 @@ type Event implements Node {
   description: String
   date: String
   going: Int
+  userIsAttending: Boolean
 }
 
 type EventConnection {

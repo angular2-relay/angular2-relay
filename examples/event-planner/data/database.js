@@ -3,21 +3,24 @@ const ngNl = {
   name: 'NG-NL',
   description: 'Angular conf',
   date: '2016-02-18',
-  going: 120
+  going: 120,
+  userIsAttending: true,
 };
 const reactEurope = {
   id: '2',
   name: 'ReactEurope 2016',
   description: 'The original EU React conf',
   date: '2016-06-02',
-  going: 250
+  going: 250,
+  userIsAttending: false,
 };
 const empireJS =  {
   id: '3',
   name: 'EmpireJS 2016',
   description: 'JS Conf in NY',
   date: 'May 2016',
-  going: 450
+  going: 450,
+  userIsAttending: true,
 };
 
 const ngEurope = {
@@ -25,7 +28,8 @@ const ngEurope = {
   name: 'NG-Europe',
   description: 'Original EU NG conf',
   date: '2016-20-25',
-  going: 99
+  going: 99,
+  userIsAttending: false,
 };
 
 const angularConnect = {
@@ -33,7 +37,8 @@ const angularConnect = {
   name: 'Angular Connect',
   description: 'Official EU NG conf',
   date: '2016-09-27',
-  going: 338
+  going: 338,
+  userIsAttending: false,
 };
 
 const scotlandJs = {
@@ -41,7 +46,8 @@ const scotlandJs = {
   name: 'ScotlandJs',
   description: 'JS in Scotland',
   date: '2016-06-02',
-  going: 60
+  going: 60,
+  userIsAttending: true,
 };
 
 const events = {
@@ -54,10 +60,10 @@ const events = {
 };
 
 const theOnlyUser = {
-    id: '1',
-    firstName: 'Lisa',
-    lastName: 'Simpson',
-    events: ['1','3','6']
+  id: '1',
+  firstName: 'Lisa',
+  lastName: 'Simpson',
+  events: ['1', '3', '6']
 };
 
 export function getUser(){
@@ -70,6 +76,7 @@ export function getEvent(id) {
 
 export function attendEvent(id){
   events[id].going++;
+  events[id].userIsAttending = true;
   theOnlyUser.events.push(id);
 }
 
