@@ -24,7 +24,8 @@ export default class AttendConferenceMutation extends Relay.Mutation {
 
   getConfigs() {
     return [{
-
+      type: 'FIELDS_CHANGE',
+      fieldIDs: { event: this.props.event.id },
     }];
   }
 

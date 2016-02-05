@@ -14,7 +14,7 @@ const reactEurope = {
   going: 250,
   userIsAttending: false,
 };
-const empireJS =  {
+const empireJS = {
   id: '3',
   name: 'EmpireJS 2016',
   description: 'JS Conf in NY',
@@ -56,17 +56,17 @@ const events = {
   3: empireJS,
   4: ngEurope,
   5: angularConnect,
-  6: scotlandJs
+  6: scotlandJs,
 };
 
 const theOnlyUser = {
   id: '1',
   firstName: 'Lisa',
   lastName: 'Simpson',
-  events: ['1', '3', '6']
+  events: ['1', '3', '6'],
 };
 
-export function getUser(){
+export function getUser() {
   return theOnlyUser;
 }
 
@@ -74,12 +74,12 @@ export function getEvent(id) {
   return events[id];
 }
 
-export function attendEvent(id){
+export function attendEvent(id) {
   events[id].going++;
   events[id].userIsAttending = true;
   theOnlyUser.events.push(id);
 }
 
-export function getAvailableEvents(){
-  return Object.keys(events).map( (id) => events[id]);
+export function getAvailableEvents() {
+  return Object.keys(events).map((id) => events[id]);
 }
