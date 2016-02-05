@@ -2,6 +2,7 @@ import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
 import { View, Component, NgZone } from 'angular2/core';
 import AttendConferenceMutation from '../mutations/AttendConferenceMutation';
+import LeaveConferenceMutation from '../mutations/LeaveConferenceMutation';
 
 const EventItemContainer = Relay.createGenericContainer('EventItem', {
   fragments: {
@@ -18,6 +19,7 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
     user: () => Relay.QL`
       fragment on User {
         ${AttendConferenceMutation.getFragment('user')}
+        ${LeaveConferenceMutation.getFragment('user')}
       }
      `,
   },
@@ -44,7 +46,8 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
 
     <button
       *ngIf="relayData.event.userIsAttending"
-      class="button-cancel">
+      class="button-cancel"
+      (click)="onLeaveEvent($event, relayData.event.id)">
       Leave
     </button>
   </div>
@@ -63,6 +66,14 @@ class EventItem {
     console.log(`Want to attend ${this.relayData.event.name},  ${this.relayData.event.id}`);
     Relay.Store.commitUpdate(
       new AttendConferenceMutation({ event: this.relayData.event, user: this.relayData.user })
+    );
+    $event.stopPropagation();
+  }
+
+  onLeaveEvent($event) {
+    console.log(`Want to leave ${this.relayData.event.name},  ${this.relayData.event.id}`);
+    Relay.Store.commitUpdate(
+      new LeaveConferenceMutation({ event: this.relayData.event, user: this.relayData.user })
     );
     $event.stopPropagation();
   }

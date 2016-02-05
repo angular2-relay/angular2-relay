@@ -1,15 +1,15 @@
 import Relay from 'generic-relay';
 
-export default class AttendConferenceMutation extends Relay.Mutation {
+export default class LeaveConferenceMutation extends Relay.Mutation {
   static fragments = {
     user: () => Relay.QL`
       fragment on User {
-        id,
+        id
       }
     `,
   };
   getMutation() {
-    return Relay.QL`mutation{ attendEvent }`;
+    return Relay.QL`mutation{ leaveEvent }`;
   }
 
   getVariables() {
@@ -21,7 +21,7 @@ export default class AttendConferenceMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`
-      fragment on AttendEventPayload {
+      fragment on LeaveEventPayload {
         event {
           going,
           userIsAttending
@@ -29,9 +29,7 @@ export default class AttendConferenceMutation extends Relay.Mutation {
         user {
           events
         },
-        eventEdge{
-          node
-        }
+        leftEventId
       }
     `;
   }
@@ -40,15 +38,15 @@ export default class AttendConferenceMutation extends Relay.Mutation {
     return [{
       type: 'FIELDS_CHANGE',
       fieldIDs: { event: this.props.event.id },
-    }, {
-      type: 'RANGE_ADD',
+    },
+    {
+      type: 'RANGE_DELETE',
       parentName: 'user',
       parentID: this.props.user.id,
       connectionName: 'events',
-      edgeName: 'eventEdge',
-      rangeBehaviors: {
-        '': 'append',
-      },
+      deletedIDFieldName: 'leftEventId',
+      pathToConnection: ['user', 'events'],
     }];
   }
+
 }

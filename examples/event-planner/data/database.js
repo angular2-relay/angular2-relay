@@ -74,6 +74,12 @@ export function getEvent(id) {
   return events[id];
 }
 
+export function leaveEvent(id) {
+  events[id].going--;
+  events[id].userIsAttending = false;
+  const index = theOnlyUser.events.indexOf(id);
+  theOnlyUser.events.splice(index, 1);
+}
 export function attendEvent(id) {
   events[id].going++;
   events[id].userIsAttending = true;

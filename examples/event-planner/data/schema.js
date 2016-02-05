@@ -17,7 +17,7 @@ import {
   globalIdField,
   mutationWithClientMutationId,
   nodeDefinitions,
-  cursorForObjectInConnection
+  cursorForObjectInConnection,
 } from 'graphql-relay';
 
 import {
@@ -25,6 +25,7 @@ import {
   getEvent,
   getAvailableEvents,
   attendEvent,
+  leaveEvent,
 } from './database';
 
 const { nodeInterface, nodeField } = nodeDefinitions(
@@ -114,7 +115,7 @@ const queryType = new GraphQLObjectType({
   }),
 });
 
-const eventMutation = mutationWithClientMutationId({
+const attendMutation = mutationWithClientMutationId({
   name: 'AttendEvent',
   inputFields: {
     eventId: {
@@ -150,10 +151,41 @@ const eventMutation = mutationWithClientMutationId({
   },
 });
 
+
+const leaveMutation = mutationWithClientMutationId({
+  name: 'LeaveEvent',
+  inputFields: {
+    eventId: {
+      type: new GraphQLNonNull(GraphQLID),
+    },
+  },
+  outputFields: {
+    event: {
+      type: eventType,
+      resolve: ({ eventId }) => getEvent(fromGlobalId(eventId).id),
+    },
+    leftEventId: {
+      type: GraphQLID,
+      resolve: ({ eventId }) => eventId,
+    },
+    user: {
+      type: userType,
+      resolve: () => getUser(),
+    },
+  },
+  mutateAndGetPayload: ({ eventId }) => {
+    leaveEvent(fromGlobalId(eventId).id);
+    return {
+      eventId,
+    };
+  },
+});
+
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    attendEvent: eventMutation,
+    attendEvent: attendMutation,
+    leaveEvent: leaveMutation,
   }),
 });
 

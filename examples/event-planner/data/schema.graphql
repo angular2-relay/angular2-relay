@@ -29,8 +29,21 @@ type EventEdge {
   cursor: String!
 }
 
+input LeaveEventInput {
+  eventId: ID!
+  clientMutationId: String!
+}
+
+type LeaveEventPayload {
+  event: Event
+  leftEventId: ID
+  user: User
+  clientMutationId: String!
+}
+
 type Mutation {
   attendEvent(input: AttendEventInput!): AttendEventPayload
+  leaveEvent(input: LeaveEventInput!): LeaveEventPayload
 }
 
 interface Node {
