@@ -1,27 +1,33 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
+@import url(https://fonts.googleapis.com/css?family=Merriweather:400,700,300);
+
 @buttonNeutralColor: #7f8c8d;
 @buttonSuccessColor: #2ecc71;
 @bottonBorderColor: #34495e;
+@headerColor: #3498db;
+@fontColor: #2c3e50;
 
 body {
+  color: @fontColor;
   font-size: 16px;
-  font-family: 'Open Sans';
+  font-family: 'Merriweather';
   background-color: #ecf0f1;
 }
 
 h1 {
-  color: #2980b9;
+  font-family: 'Lato';
+  font-size: 4em;
+  color: @headerColor;
 }
 
 .event-planner-app {
   display: flex;
   justify-content: space-between;
-  > div {
-    padding: 2rem;
-  }
+
   user-account {
     width: 33%;
-    padding: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
     background-color: white;
   }
 
@@ -36,8 +42,6 @@ h1 {
     }
   }
 }
-
-
 
 button {
   margin: 0 10px 0 0;
@@ -62,6 +66,10 @@ button {
 
   &.button-save {
     background-color: @buttonSuccessColor;
+
+    &:hover {
+      background-color: lighten(@buttonSuccessColor, 10%);
+    }
   }
 }
 

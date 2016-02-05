@@ -20,7 +20,7 @@ import { EventPlannerApp, EventPlannerAppContainer } from './components/EventPla
   directives: [EventPlannerApp],
   template: `
   <div>
-    <h1>Event Planner</h1>
+    <h1>Conference Planner</h1>
     <event-planner-app [relayProps]="relayProps" [route]="route"></event-planner-app>
   </div>
   `,
