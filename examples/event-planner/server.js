@@ -37,11 +37,19 @@ var compiler = webpack({
         loader: 'babel',
         query: {
           'presets': ['es2015'],
-          'plugins': ['./build/babelRelayPlugin', 'angular2-annotations',
-           'transform-decorators-legacy', 'transform-class-properties','transform-flow-strip-types']
+          'plugins': [
+            './build/babelRelayPlugin',
+            'angular2-annotations',
+            'transform-decorators-legacy',
+            'transform-class-properties',
+            'transform-flow-strip-types']
         },
         test: /\.js$/
       },
+      {
+        test: /\.less$/,
+        loader: "style!css!less-loader",
+      }
     ],
   },
   output: {filename: 'app.js', path: '/'},
