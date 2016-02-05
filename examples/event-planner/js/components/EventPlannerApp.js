@@ -1,7 +1,7 @@
 import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
 import { Component, View } from 'angular2/core';
-import { EventList, EventListContainer } from './EventList';
+import { EventItem, EventItemContainer } from './EventItem';
 
 const EventPlannerAppContainer = Relay.createGenericContainer('EventPlannerApp', {
   fragments: {
@@ -11,36 +11,36 @@ const EventPlannerAppContainer = Relay.createGenericContainer('EventPlannerApp',
           firstName,
           lastName
         },
-        ${EventListContainer.getFragment('availableEvents')}
+        availableEvents {
+          ${EventItemContainer.getFragment('event')}
+        }
       }
     `,
   },
 });
 
 @Component({
-  selector: 'event-planner-app'
+  selector: 'event-planner-app',
 })
 @View({
-  directives: [EventList],
+  directives: [EventItem],
   template: `
   <div>
     <span>User: {{relayData.root.user.firstName}} {{relayData.root.user.lastName}}</span>
-    <event-list [relayProps]="relayProps" [route]="route"></event-list>
+    <div *ngFor="#event of relayData.root.availableEvents">
+      <event-item [relayProps]="{event: event}" [route]="route"></event-item>
+    </div>
   </div>
-    `
+    `,
 })
 @connectRelay({
-  container: EventPlannerAppContainer
+  container: EventPlannerAppContainer,
 })
 class EventPlannerApp {
 
   constructor() {
     this.initWithRelay();
-    this.relayData = { root: { user: {} } };
-  }
-
-  ngOnChanges(newState) {
-    console.log(newState);
+    this.relayData = { root: { user: {}, availableEvents: [] } };
   }
 
 }
