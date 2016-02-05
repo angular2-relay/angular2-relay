@@ -16,7 +16,8 @@ export default class AttendConferenceMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on AttendEventPayload {
         event {
-          going
+          going,
+          userIsAttending
         }
       }
     `;
