@@ -3,6 +3,7 @@
 
 @buttonNeutralColor: #7f8c8d;
 @buttonSuccessColor: #2ecc71;
+@buttonCancelColor: #c0392b;
 @bottonBorderColor: #34495e;
 @headerColor: #3498db;
 @fontColor: #2c3e50;
@@ -69,6 +70,14 @@ button {
 
     &:hover {
       background-color: lighten(@buttonSuccessColor, 10%);
+    }
+  }
+
+  &.button-cancel {
+    background-color: @buttonCancelColor;
+
+    &:hover {
+      background-color: lighten(@buttonCancelColor, 10%);
     }
   }
 }

@@ -10,7 +10,8 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
       name,
       date,
       description,
-      going
+      going,
+      userIsAttending
     }
     `,
   },
@@ -27,7 +28,19 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
     <div>{{ relayData.event.date }}</div>
     <div>{{ relayData.event.description }}</div>
     <div>Attending: {{ relayData.event.going }}</div>
-    <button class="button-save" (click)="onAttendEvent($event, relayData.event.id)">Attend</button>
+
+    <button
+      *ngIf="relayData.event.userIsAttending"
+      class="button-save"
+      (click)="onAttendEvent($event, relayData.event.id)">
+      Attend
+    </button>
+
+    <button
+      *ngIf="!relayData.event.userIsAttending"
+      class="button-cancel">
+      Leave
+    </button>
   </div>
   `,
 })
