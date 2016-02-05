@@ -20,7 +20,7 @@ const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
   directives: [],
   template: `
     <div class="user-account">
-      <h2>Hi {{ relayData.user.firstName }} {{ relayData.user.lastName }}</h2>
+      <h2>Hi {{ getUser().firstName }} {{ getUser().lastName }}</h2>
     </div>
   `,
 })
@@ -31,6 +31,9 @@ class UserAccount {
   constructor() {
     this.initWithRelay();
     this.relayData = { user: {} };
+  }
+  getUser() {
+    return this.relayData.user || {};
   }
 }
 
