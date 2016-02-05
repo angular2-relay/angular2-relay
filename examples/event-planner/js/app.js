@@ -3,8 +3,8 @@ import 'reflect-metadata';
 import 'babel-polyfill';
 
 import { provide, Component, View, NgZone } from 'angular2/core';
-import {bootstrap} from 'angular2/platform/browser';
-import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
+import { bootstrap } from 'angular2/platform/browser';
+import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angular2/router';
 
 
 import Relay from 'generic-relay';
@@ -13,7 +13,7 @@ import EventPlannerAppHomeRoute from './routes/EventPlannerAppHomeRoute';
 import { EventPlannerApp, EventPlannerAppContainer } from './components/EventPlannerApp';
 
 @Component({
-  selector: 'app'
+  selector: 'app',
 })
 @View({
   directives: [EventPlannerApp],
@@ -22,13 +22,13 @@ import { EventPlannerApp, EventPlannerAppContainer } from './components/EventPla
     <h1>Event Planner</h1>
     <event-planner-app [relayProps]="relayProps" [route]="route"></event-planner-app>
   </div>
-  `
+  `,
 })
 class App {
   constructor(ngZone: NgZone) {
     const route = new EventPlannerAppHomeRoute();
 
-    const listener = ({data}) => {
+    const listener = ({ data }) => {
       ngZone.run(() => {
         this.relayProps = data;
       });
@@ -44,5 +44,5 @@ class App {
 
 bootstrap(App, [
   ROUTER_PROVIDERS,
-  provide(LocationStrategy, { useClass: HashLocationStrategy })
+  provide(LocationStrategy, { useClass: HashLocationStrategy }),
 ]);
