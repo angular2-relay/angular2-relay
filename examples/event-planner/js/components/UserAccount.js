@@ -7,7 +7,15 @@ const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
     user: () => Relay.QL`
       fragment on User {
         firstName,
-        lastName
+        lastName,
+        events(first: 10) {
+          edges {
+            node {
+              name,
+              going
+            }
+          }
+        }
       }
      `,
   },
@@ -21,6 +29,12 @@ const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
   template: `
     <div class="user-account">
       <h2>Hi {{ getUser().firstName }} {{ getUser().lastName }}</h2>
+      <div>
+        Events you attend:
+        <div *ngFor="#node of getUser().events.edges">
+          {{ node.name }}
+        </div>
+      </div>
     </div>
   `,
 })
