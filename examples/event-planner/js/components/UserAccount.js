@@ -47,7 +47,7 @@ class UserAccount {
     this.relayData = { user: {} };
   }
   getUser() {
-    return this.relayData.user || {};
+    return this.relayData.user || { events: { } };
   }
 }
 
