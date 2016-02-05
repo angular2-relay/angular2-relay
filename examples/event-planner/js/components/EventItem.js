@@ -1,6 +1,6 @@
 import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
-import { View, Component } from 'angular2/core';
+import { View, Component, NgZone } from 'angular2/core';
 import AttendConferenceMutation from '../mutations/AttendConferenceMutation';
 
 const EventItemContainer = Relay.createGenericContainer('EventItem', {
@@ -31,14 +31,14 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
     <div>Attending: {{ relayData.event.going }}</div>
 
     <button
-      *ngIf="relayData.event.userIsAttending"
+      *ngIf="!relayData.event.userIsAttending"
       class="button-save"
       (click)="onAttendEvent($event, relayData.event.id)">
       Attend
     </button>
 
     <button
-      *ngIf="!relayData.event.userIsAttending"
+      *ngIf="relayData.event.userIsAttending"
       class="button-cancel">
       Leave
     </button>
@@ -49,8 +49,8 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
   container: EventItemContainer,
 })
 class EventItem {
-  constructor() {
-    this.initWithRelay();
+  constructor(ngZone: NgZone) {
+    this.initWithRelay(ngZone);
     this.relayData = {};
   }
 

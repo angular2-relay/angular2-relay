@@ -22,11 +22,12 @@ export function connectRelay(config) {
       }
     };
 
-    function initWithRelay() {
+    function initWithRelay(ngZone) {
       this.relayData = {};
 
+
       const updateListener = (state) => {
-        this.relayData = state.data;
+        ngZone.run(()=>this.relayData = state.data);
       };
       this.container = new config.container(updateListener);
     }
