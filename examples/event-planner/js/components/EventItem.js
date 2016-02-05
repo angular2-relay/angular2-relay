@@ -6,6 +6,7 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
   fragments: {
     event: () => Relay.QL`
     fragment on Event {
+      id,
       name,
       date,
       description,
@@ -26,7 +27,7 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
     <div>{{ relayData.event.date }}</div>
     <div>{{ relayData.event.description }}</div>
     <div>Attending: {{ relayData.event.going }}</div>
-    <button class="button-save">Attend</button>
+    <button class="button-save" (click)="onAttendEvent($event, relayData.event.id)">Attend</button>
   </div>
   `,
 })
@@ -37,6 +38,11 @@ class EventItem {
   constructor() {
     this.initWithRelay();
     this.relayData = {};
+  }
+
+  onAttendEvent($event) {
+    console.log(`Want to attend ${this.relayData.event.name},  ${this.relayData.event.id}`);
+    $event.stopPropagation();
   }
 }
 
