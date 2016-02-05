@@ -25,10 +25,16 @@ const EventPlannerAppContainer = Relay.createGenericContainer('EventPlannerApp',
 @View({
   directives: [EventItem],
   template: `
-  <div>
-    <span>User: {{relayData.root.user.firstName}} {{relayData.root.user.lastName}}</span>
-    <div *ngFor="#event of relayData.root.availableEvents">
-      <event-item [relayProps]="{event: event}" [route]="route"></event-item>
+  <div class="event-planner-app">
+    <div class="event-list">
+      <event-item
+        *ngFor="#event of relayData.root.availableEvents"
+        [relayProps]="{event: event}"
+        [route]="route">
+      </event-item>
+    </div>
+    <div class="user-account">
+      <h2>Hi {{relayData.root.user.firstName}} {{relayData.root.user.lastName}}</h2>
     </div>
   </div>
     `,

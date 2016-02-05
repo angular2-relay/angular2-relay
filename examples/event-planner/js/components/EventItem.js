@@ -19,7 +19,10 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
 @View({
   directives: [],
   template: `
-  <div>{{relayData.event.description}} {{relayData.event.date}}</div>
+  <div>
+    <h3>{{relayData.event.description}}</h3>
+    {{relayData.event.date}}
+  </div>
   `,
 })
 @connectRelay({

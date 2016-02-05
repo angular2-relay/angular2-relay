@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+  font-size: 16px;
+  font-family: 'Open Sans';
+}
+
+.event-planner-app {
+  display: flex;
+  justify-content: space-between;
+  > div {
+    padding: 2rem;
+  }
+  .user-account {
+    width: 33%;
+  }
+
+  .event-list {
+    width: 66%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    event-item {
+      padding: 2%;
+      min-width: 45%;
+    }
+  }
+}
