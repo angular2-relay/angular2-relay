@@ -1,6 +1,7 @@
 import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
 import { View, Component } from 'angular2/core';
+import AttendConferenceMutation from '../mutations/AttendConferenceMutation';
 
 const EventItemContainer = Relay.createGenericContainer('EventItem', {
   fragments: {
@@ -55,6 +56,9 @@ class EventItem {
 
   onAttendEvent($event) {
     console.log(`Want to attend ${this.relayData.event.name},  ${this.relayData.event.id}`);
+    Relay.Store.commitUpdate(
+      new AttendConferenceMutation({ event: this.relayData.event })
+    );
     $event.stopPropagation();
   }
 }
