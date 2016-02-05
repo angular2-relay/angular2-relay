@@ -6,8 +6,10 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
   fragments: {
     event: () => Relay.QL`
     fragment on Event {
+      name,
       date,
-      description
+      description,
+      going
     }
     `,
   },
@@ -20,8 +22,10 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
   directives: [],
   template: `
   <div>
-    <h3>{{relayData.event.description}}</h3>
-    {{relayData.event.date}}
+    <h3>{{ relayData.event.name }}</h3>
+    <div>{{ relayData.event.date }}</div>
+    <div>{{ relayData.event.description }}</div>
+    <div>Attending: {{ relayData.event.going }}</div>
   </div>
   `,
 })
