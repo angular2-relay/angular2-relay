@@ -10,6 +10,7 @@ const EventPlannerAppContainer = Relay.createGenericContainer('EventPlannerApp',
       fragment on Root {
         user {
           ${UserAccountContainer.getFragment('user')}
+          ${EventItemContainer.getFragment('user')}
         },
         availableEvents {
           ${EventItemContainer.getFragment('event')}
@@ -29,7 +30,7 @@ const EventPlannerAppContainer = Relay.createGenericContainer('EventPlannerApp',
     <div class="event-list">
       <event-item
         *ngFor="#event of relayData.root.availableEvents"
-        [relayProps]="{ event: event }"
+        [relayProps]="{ event: event, user: relayData.root.user }"
         [route]="route">
       </event-item>
     </div>

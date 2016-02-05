@@ -17,6 +17,7 @@ import {
   globalIdField,
   mutationWithClientMutationId,
   nodeDefinitions,
+  cursorForObjectInConnection
 } from 'graphql-relay';
 
 import {
@@ -63,7 +64,7 @@ const eventType = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
-const { connectionType: eventConnection } =
+const { connectionType: eventConnection, edgeType: eventEdgeType } =
   connectionDefinitions({ name: 'Event', nodeType: eventType });
 
 const userType = new GraphQLObjectType({
@@ -123,11 +124,22 @@ const eventMutation = mutationWithClientMutationId({
   outputFields: {
     event: {
       type: eventType,
-      resolve: (payload) => getEvent(fromGlobalId(payload.eventId).id),
+      resolve: ({ eventId }) => getEvent(fromGlobalId(eventId).id),
     },
     user: {
       type: userType,
       resolve: () => getUser(),
+    },
+    eventEdge: {
+      type: eventEdgeType,
+      resolve: ({ eventId }) => {
+        const event = getEvent(fromGlobalId(eventId).id);
+        const eventsAttenendByUser = getUser().events.map((id) => getEvent(id));
+        return {
+          cursor: cursorForObjectInConnection(eventsAttenendByUser, event),
+          node: event,
+        };
+      },
     },
   },
   mutateAndGetPayload: ({ eventId }) => {

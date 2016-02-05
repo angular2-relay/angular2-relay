@@ -15,6 +15,11 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
       userIsAttending
     }
     `,
+    user: () => Relay.QL`
+      fragment on User {
+        ${AttendConferenceMutation.getFragment('user')}
+      }
+     `,
   },
 });
 
@@ -57,7 +62,7 @@ class EventItem {
   onAttendEvent($event) {
     console.log(`Want to attend ${this.relayData.event.name},  ${this.relayData.event.id}`);
     Relay.Store.commitUpdate(
-      new AttendConferenceMutation({ event: this.relayData.event })
+      new AttendConferenceMutation({ event: this.relayData.event, user: this.relayData.user })
     );
     $event.stopPropagation();
   }

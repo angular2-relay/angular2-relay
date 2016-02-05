@@ -6,6 +6,7 @@ input AttendEventInput {
 type AttendEventPayload {
   event: Event
   user: User
+  eventEdge: EventEdge
   clientMutationId: String!
 }
 
