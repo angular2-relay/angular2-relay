@@ -26,6 +26,7 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
     <div>{{ relayData.event.date }}</div>
     <div>{{ relayData.event.description }}</div>
     <div>Attending: {{ relayData.event.going }}</div>
+    <button class="button-save">Attend</button>
   </div>
   `,
 })
@@ -33,12 +34,10 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
   container: EventItemContainer,
 })
 class EventItem {
-
   constructor() {
     this.initWithRelay();
     this.relayData = {};
   }
-
 }
 
 export { EventItem, EventItemContainer };

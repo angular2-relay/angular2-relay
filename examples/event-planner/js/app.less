@@ -1,8 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@buttonNeutralColor: #7f8c8d;
+@buttonSuccessColor: #2ecc71;
+@bottonBorderColor: #34495e;
 
 body {
   font-size: 16px;
   font-family: 'Open Sans';
+  background-color: #ecf0f1;
+}
+
+h1 {
+  color: #2980b9;
 }
 
 .event-planner-app {
@@ -11,13 +19,14 @@ body {
   > div {
     padding: 2rem;
   }
-  .user-account {
+  user-account {
     width: 33%;
+    padding: 2%;
+    background-color: white;
   }
 
   .event-list {
     width: 66%;
-
     display: flex;
     flex-wrap: wrap;
 
@@ -26,4 +35,36 @@ body {
       min-width: 45%;
     }
   }
+}
+
+
+
+button {
+  margin: 0 10px 0 0;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  line-height: 1.8;
+  appearance: none;
+  color: #fff;
+  background-color: @buttonNeutralColor;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px @bottonBorderColor;
+
+  &:hover {
+    background-color: lighten(@buttonNeutralColor, 10%);
+  }
+
+  &:active {
+    box-shadow: 0 2px @bottonBorderColor;
+    transform: translateY(3px);
+  }
+
+  &.button-save {
+    background-color: @buttonSuccessColor;
+  }
+}
+
+button:focus {
+  outline: none
 }
