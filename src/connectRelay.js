@@ -2,8 +2,6 @@ import { InputMetadata } from 'angular2/core';
 
 export function connectRelay(config) {
   return (target) => {
-    const decoratedTarget = target;
-
     Reflect.defineMetadata('propMetadata', {
       relayProps: [new InputMetadata()],
       route: [new InputMetadata()],
@@ -31,9 +29,9 @@ export function connectRelay(config) {
       this.relayData = relayData;
     }
 
-    decoratedTarget.prototype.ngOnChanges = ngOnChanges;
-    decoratedTarget.prototype.initWithRelay = initWithRelay;
+    target.prototype.ngOnChanges = ngOnChanges;
+    target.prototype.initWithRelay = initWithRelay;
 
-    return decoratedTarget;
+    return target;
   };
 }
