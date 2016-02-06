@@ -2,10 +2,11 @@ import { InputMetadata } from 'angular2/core';
 
 export function connectRelay(config) {
   return (target) => {
+    const decoratedTarget = target;
 
     Reflect.defineMetadata('propMetadata', {
       relayProps: [new InputMetadata()],
-      route: [new InputMetadata()]
+      route: [new InputMetadata()],
     }, target);
 
     const changeFn = target.prototype.ngOnChanges;
@@ -15,26 +16,25 @@ export function connectRelay(config) {
       const relayProps = newState.relayProps ? newState.relayProps.currentValue : this.relayProps;
 
       if (route && relayProps) {
-        this.container.update({route: route, fragmentInput: relayProps});
+        this.container.update({ route, fragmentInput: relayProps });
       }
       if (changeFn) {
         changeFn.call(this, newState);
       }
-    };
+    }
 
     function initWithRelay(ngZone) {
       this.relayData = {};
 
-
       const updateListener = (state) => {
-        ngZone.run(()=>this.relayData = state.data);
+        ngZone.run(() => this.relayData = state.data);
       };
       this.container = new config.container(updateListener);
     }
 
-    target.prototype.ngOnChanges = ngOnChanges;
-    target.prototype.initWithRelay = initWithRelay;
+    decoratedTarget.prototype.ngOnChanges = ngOnChanges;
+    decoratedTarget.prototype.initWithRelay = initWithRelay;
 
-    return target;
+    return decoratedTarget;
   };
 }
