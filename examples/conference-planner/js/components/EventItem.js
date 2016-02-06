@@ -63,7 +63,6 @@ class EventItem {
   }
 
   onAttendEvent($event) {
-    console.log(`Want to attend ${this.relayData.event.name},  ${this.relayData.event.id}`);
     Relay.Store.commitUpdate(
       new AttendConferenceMutation({ event: this.relayData.event, user: this.relayData.user })
     );
@@ -71,7 +70,6 @@ class EventItem {
   }
 
   onLeaveEvent($event) {
-    console.log(`Want to leave ${this.relayData.event.name},  ${this.relayData.event.id}`);
     Relay.Store.commitUpdate(
       new LeaveConferenceMutation({ event: this.relayData.event, user: this.relayData.user })
     );
