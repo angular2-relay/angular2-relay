@@ -11,12 +11,12 @@
 body {
   color: @fontColor;
   font-size: 16px;
-  font-family: 'Merriweather';
+  font-family: 'Merriweather', serif;
   background-color: #ecf0f1;
 }
 
 h1 {
-  font-family: 'Lato';
+  font-family: 'Lato', sans-serif;;
   font-size: 4em;
   color: @headerColor;
 }
@@ -55,9 +55,10 @@ button {
   border: none;
   border-radius: 5px;
   box-shadow: 0 4px @bottonBorderColor;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: lighten(@buttonNeutralColor, 10%);
+    background-color: lighten(@buttonNeutralColor, 15%);
   }
 
   &:active {
