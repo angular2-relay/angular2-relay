@@ -29,7 +29,7 @@ export default class AttendConferenceMutation extends Relay.Mutation {
         user {
           events
         },
-        eventEdge{
+        eventEdge {
           node
         }
       }
