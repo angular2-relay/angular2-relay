@@ -78,6 +78,9 @@ const userType = new GraphQLObjectType({
     lastName: {
       type: GraphQLString,
     },
+    dob: {
+      type: GraphQLString,
+    },
     events: {
       type: eventConnection,
       args: connectionArgs,

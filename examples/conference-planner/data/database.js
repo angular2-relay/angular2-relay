@@ -63,6 +63,7 @@ const theOnlyUser = {
   id: '1',
   firstName: 'Lisa',
   lastName: 'Simpson',
+  dob: '19-04-1987',
   events: ['1', '3', '6'],
 };
 

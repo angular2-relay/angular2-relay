@@ -71,5 +71,6 @@ type User implements Node {
   id: ID!
   firstName: String
   lastName: String
+  dob: String
   events(after: String, first: Int, before: String, last: Int): EventConnection
 }
