@@ -23,13 +23,12 @@ export function connectRelay(config) {
       }
     }
 
-    function initWithRelay(ngZone) {
-      this.relayData = {};
-
+    function initWithRelay(ngZone, relayData = {}) {
       const updateListener = (state) => {
         ngZone.run(() => this.relayData = state.data);
       };
       this.container = new config.container(updateListener);
+      this.relayData = relayData;
     }
 
     decoratedTarget.prototype.ngOnChanges = ngOnChanges;
