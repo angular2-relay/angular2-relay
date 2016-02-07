@@ -2,7 +2,7 @@ import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
 import { Component, View, NgZone } from 'angular2/core';
 
-const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
+const UserAccountContainer = Relay.createGenericContainer('User', {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
@@ -22,12 +22,12 @@ const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
 });
 
 @Component({
-  selector: 'user-account',
+  selector: 'user',
 })
 @View({
   directives: [],
   template: `
-    <div class="user-account">
+    <div class="user">
       <h2>Hi {{ getUser().firstName }} {{ getUser().lastName }}</h2>
       <div>
         Conferences you attend:
@@ -41,7 +41,7 @@ const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
 @connectRelay({
   container: UserAccountContainer,
 })
-class UserAccount {
+class User {
   constructor(ngZone: NgZone) {
     this.initWithRelay(ngZone);
     this.relayData = { user: {} };
@@ -51,4 +51,4 @@ class UserAccount {
   }
 }
 
-export { UserAccountContainer, UserAccount };
+export { UserAccountContainer, User };
