@@ -64,7 +64,7 @@ type Query {
 
 type Root {
   user: User
-  availableConferences: [Conference]
+  conferences: [Conference]
 }
 
 type User implements Node {

@@ -12,7 +12,7 @@ const ConferencePlannerAppContainer = Relay.createGenericContainer('ConferencePl
           ${UserAccountContainer.getFragment('user')}
           ${ConferenceItemContainer.getFragment('user')}
         },
-        availableConferences {
+        conferences {
           ${ConferenceItemContainer.getFragment('conference')}
         }
       }
@@ -29,7 +29,7 @@ const ConferencePlannerAppContainer = Relay.createGenericContainer('ConferencePl
   <div class="conference-planner-app">
     <div class="conference-list">
       <conference-item
-        *ngFor="#conference of relayData.root.availableConferences"
+        *ngFor="#conference of relayData.root.conferences"
         [relayProps]="{ conference: conference, user: relayData.root.user }"
         [route]="route">
       </conference-item>
@@ -49,7 +49,7 @@ class ConferencePlannerApp {
   constructor(ngZone: NgZone) {
     this.initWithRelay(ngZone);
     this.ngZone = ngZone;
-    this.relayData = { root: { user: {}, availableConferences: [] } };
+    this.relayData = { root: { user: {}, conferences: [] } };
   }
 
 

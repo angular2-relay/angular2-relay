@@ -77,7 +77,7 @@
               "deprecationReason": null
             },
             {
-              "name": "availableConferences",
+              "name": "conferences",
               "description": null,
               "args": [],
               "type": {

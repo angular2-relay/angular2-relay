@@ -100,7 +100,7 @@ const rootType = new GraphQLObjectType({
       type: userType,
       resolve: () => getUser(),
     },
-    availableConferences: {
+    conferences: {
       type: new GraphQLList(conferenceType),
       resolve: () => getAvailableConferences(),
     },
