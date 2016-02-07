@@ -3,6 +3,7 @@ import { connectRelay } from 'angular2-relay';
 import { View, Component, NgZone } from 'angular2/core';
 import AttendConferenceMutation from '../mutations/AttendConferenceMutation';
 import LeaveConferenceMutation from '../mutations/LeaveConferenceMutation';
+import { ConferenceItemDetails, ConferenceItemDetailsContainer } from './ConferenceItemDetails';
 
 const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
   fragments: {
@@ -10,10 +11,8 @@ const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
     fragment on Conference {
       id,
       name,
-      date,
-      description,
-      going,
-      userIsAttending
+      userIsAttending,
+      ${ConferenceItemDetailsContainer.getFragment('conference')}
     }
     `,
     user: () => Relay.QL`
@@ -29,14 +28,14 @@ const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
   selector: 'conference-item',
 })
 @View({
-  directives: [],
+  directives: [ConferenceItemDetails],
   template: `
   <div>
     <h3>{{ relayData.conference.name }}</h3>
-    <div>{{ relayData.conference.date }}</div>
-    <div>{{ relayData.conference.description }}</div>
-    <div>Attending: {{ relayData.conference.going }}</div>
-
+    <conference-item-details
+      [route]="route"
+      [relayProps]="{ conference: relayData.conference }">
+    </conference-item-details>
     <button
       *ngIf="!relayData.conference.userIsAttending"
       class="button-save"
