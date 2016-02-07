@@ -81,11 +81,11 @@ const userType = new GraphQLObjectType({
     dob: {
       type: GraphQLString,
     },
-    conferences: {
+    attendingConferences: {
       type: conferenceConnection,
       args: connectionArgs,
       resolve: (user, args) => connectionFromArray(
-              user.conferences.map((id) => getConference(id)),
+              user.attendingConferences.map((id) => getConference(id)),
               args),
     },
   }),
@@ -138,7 +138,8 @@ const attendMutation = mutationWithClientMutationId({
       type: conferenceEdgeType,
       resolve: ({ conferenceId }) => {
         const conference = getConference(fromGlobalId(conferenceId).id);
-        const conferencesAttenendByUser = getUser().conferences.map((id) => getConference(id));
+        const conferencesAttenendByUser =
+          getUser().attendingConferences.map((id) => getConference(id));
         return {
           cursor: cursorForObjectInConnection(conferencesAttenendByUser, conference),
           node: conference,

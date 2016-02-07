@@ -27,7 +27,7 @@ export default class LeaveConferenceMutation extends Relay.Mutation {
           userIsAttending
         },
         user {
-          conferences
+          attendingConferences
         },
         leftConferenceId
       }
@@ -43,9 +43,9 @@ export default class LeaveConferenceMutation extends Relay.Mutation {
       type: 'RANGE_DELETE',
       parentName: 'user',
       parentID: this.props.user.id,
-      connectionName: 'conferences',
+      connectionName: 'attendingConferences',
       deletedIDFieldName: 'leftConferenceId',
-      pathToConnection: ['user', 'conferences'],
+      pathToConnection: ['user', 'attendingConferences'],
     }];
   }
 

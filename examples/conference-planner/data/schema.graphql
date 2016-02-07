@@ -72,5 +72,5 @@ type User implements Node {
   firstName: String
   lastName: String
   dob: String
-  conferences(after: String, first: Int, before: String, last: Int): ConferenceConnection
+  attendingConferences(after: String, first: Int, before: String, last: Int): ConferenceConnection
 }

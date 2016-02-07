@@ -64,7 +64,7 @@ const theOnlyUser = {
   firstName: 'Lisa',
   lastName: 'Simpson',
   dob: '19-04-1987',
-  conferences: ['1', '3', '6'],
+  attendingConferences: ['1', '3', '6'],
 };
 
 export function getUser() {
@@ -78,13 +78,13 @@ export function getConference(id) {
 export function leaveConference(id) {
   conferences[id].attendance--;
   conferences[id].userIsAttending = false;
-  const index = theOnlyUser.conferences.indexOf(id);
-  theOnlyUser.conferences.splice(index, 1);
+  const index = theOnlyUser.attendingConferences.indexOf(id);
+  theOnlyUser.attendingConferences.splice(index, 1);
 }
 export function attendConference(id) {
   conferences[id].attendance++;
   conferences[id].userIsAttending = true;
-  theOnlyUser.conferences.push(id);
+  theOnlyUser.attendingConferences.push(id);
 }
 
 export function getAvailableConferences() {

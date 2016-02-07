@@ -27,7 +27,7 @@ export default class AttendConferenceMutation extends Relay.Mutation {
           userIsAttending
         },
         user {
-          conferences
+          attendingConferences
         },
         conferenceEdge {
           node
@@ -44,7 +44,7 @@ export default class AttendConferenceMutation extends Relay.Mutation {
       type: 'RANGE_ADD',
       parentName: 'user',
       parentID: this.props.user.id,
-      connectionName: 'conferences',
+      connectionName: 'attendingConferences',
       edgeName: 'conferenceEdge',
       rangeBehaviors: {
         '': 'append',
