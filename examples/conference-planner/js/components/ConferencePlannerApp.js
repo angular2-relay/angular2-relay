@@ -1,7 +1,7 @@
 import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
 import { Component, View, NgZone } from 'angular2/core';
-import { ConferenceItem, ConferenceItemContainer } from './ConferenceItem';
+import { Conference, ConferenceContainer } from './Conference';
 import { User, UserAccountContainer } from './User';
 
 const ConferencePlannerAppContainer = Relay.createGenericContainer('ConferencePlannerApp', {
@@ -10,10 +10,10 @@ const ConferencePlannerAppContainer = Relay.createGenericContainer('ConferencePl
       fragment on Root {
         user {
           ${UserAccountContainer.getFragment('user')}
-          ${ConferenceItemContainer.getFragment('user')}
+          ${ConferenceContainer.getFragment('user')}
         },
         conferences {
-          ${ConferenceItemContainer.getFragment('conference')}
+          ${ConferenceContainer.getFragment('conference')}
         }
       }
     `,
@@ -24,15 +24,15 @@ const ConferencePlannerAppContainer = Relay.createGenericContainer('ConferencePl
   selector: 'conference-planner-app',
 })
 @View({
-  directives: [ConferenceItem, User],
+  directives: [Conference, User],
   template: `
   <div class="conference-planner-app">
     <div class="conference-list">
-      <conference-item
+      <conference
         *ngFor="#conference of relayData.root.conferences"
         [relayProps]="{ conference: conference, user: relayData.root.user }"
         [route]="route">
-      </conference-item>
+      </conference>
     </div>
     <user
       [relayProps]="{ user: relayData.root.user }"

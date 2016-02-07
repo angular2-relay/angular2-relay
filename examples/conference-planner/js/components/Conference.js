@@ -3,16 +3,16 @@ import { connectRelay } from 'angular2-relay';
 import { View, Component, NgZone } from 'angular2/core';
 import AttendConferenceMutation from '../mutations/AttendConferenceMutation';
 import LeaveConferenceMutation from '../mutations/LeaveConferenceMutation';
-import { ConferenceItemDetails, ConferenceItemDetailsContainer } from './ConferenceItemDetails';
+import { ConferenceDetails, ConferenceDetailsContainer } from './ConferenceDetails';
 
-const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
+const ConferenceContainer = Relay.createGenericContainer('Conference', {
   fragments: {
     conference: () => Relay.QL`
     fragment on Conference {
       id,
       name,
       userIsAttending,
-      ${ConferenceItemDetailsContainer.getFragment('conference')}
+      ${ConferenceDetailsContainer.getFragment('conference')}
     }
     `,
     user: () => Relay.QL`
@@ -25,17 +25,17 @@ const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
 });
 
 @Component({
-  selector: 'conference-item',
+  selector: 'conference',
 })
 @View({
-  directives: [ConferenceItemDetails],
+  directives: [ConferenceDetails],
   template: `
   <div>
     <h3>{{ relayData.conference.name }}</h3>
-    <conference-item-details
+    <conference-details
       [route]="route"
       [relayProps]="{ conference: relayData.conference }">
-    </conference-item-details>
+    </conference-details>
 
     <button
       *ngIf="!relayData.conference.userIsAttending"
@@ -54,9 +54,9 @@ const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
   `,
 })
 @connectRelay({
-  container: ConferenceItemContainer,
+  container: ConferenceContainer,
 })
-class ConferenceItem {
+class Conference {
   constructor(ngZone: NgZone) {
     this.initWithRelay(ngZone);
     this.relayData = {};
@@ -83,4 +83,4 @@ class ConferenceItem {
   }
 }
 
-export { ConferenceItem, ConferenceItemContainer };
+export { Conference, ConferenceContainer };

@@ -2,8 +2,8 @@ import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
 import { Component, View, NgZone } from 'angular2/core';
 
-const ConferenceItemDetailsContainer =
-  Relay.createGenericContainer('ConferenceItemDetails', {
+const ConferenceDetailsContainer =
+  Relay.createGenericContainer('ConferenceDetails', {
     fragments: {
       conference: () => Relay.QL`
         fragment on Conference {
@@ -16,7 +16,7 @@ const ConferenceItemDetailsContainer =
   });
 
 @Component({
-  selector: 'conference-item-details',
+  selector: 'conference-details',
 })
 @View({
   directives: [],
@@ -27,13 +27,13 @@ const ConferenceItemDetailsContainer =
   `,
 })
 @connectRelay({
-  container: ConferenceItemDetailsContainer,
+  container: ConferenceDetailsContainer,
 })
-class ConferenceItemDetails {
+class ConferenceDetails {
   constructor(ngZone: NgZone) {
     this.initWithRelay(ngZone);
     this.relayData = { conference: {} };
   }
 }
 
-export { ConferenceItemDetailsContainer, ConferenceItemDetails };
+export { ConferenceDetailsContainer, ConferenceDetails };
