@@ -9,27 +9,27 @@ export default class AttendConferenceMutation extends Relay.Mutation {
     `,
   };
   getMutation() {
-    return Relay.QL`mutation{ attendEvent }`;
+    return Relay.QL`mutation{ attendConference }`;
   }
 
   getVariables() {
-    const { id } = this.props.event;
+    const { id } = this.props.conference;
     return {
-      eventId: id,
+      conferenceId: id,
     };
   }
 
   getFatQuery() {
     return Relay.QL`
-      fragment on AttendEventPayload {
-        event {
+      fragment on AttendConferencePayload {
+        conference {
           going,
           userIsAttending
         },
         user {
-          events
+          conferences
         },
-        eventEdge {
+        conferenceEdge {
           node
         }
       }
@@ -39,13 +39,13 @@ export default class AttendConferenceMutation extends Relay.Mutation {
   getConfigs() {
     return [{
       type: 'FIELDS_CHANGE',
-      fieldIDs: { event: this.props.event.id },
+      fieldIDs: { conference: this.props.conference.id },
     }, {
       type: 'RANGE_ADD',
       parentName: 'user',
       parentID: this.props.user.id,
-      connectionName: 'events',
-      edgeName: 'eventEdge',
+      connectionName: 'conferences',
+      edgeName: 'conferenceEdge',
       rangeBehaviors: {
         '': 'append',
       },

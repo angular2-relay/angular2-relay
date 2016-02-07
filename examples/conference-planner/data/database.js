@@ -50,7 +50,7 @@ const scotlandJs = {
   userIsAttending: true,
 };
 
-const events = {
+const conferences = {
   1: ngNl,
   2: reactEurope,
   3: empireJS,
@@ -64,29 +64,29 @@ const theOnlyUser = {
   firstName: 'Lisa',
   lastName: 'Simpson',
   dob: '19-04-1987',
-  events: ['1', '3', '6'],
+  conferences: ['1', '3', '6'],
 };
 
 export function getUser() {
   return theOnlyUser;
 }
 
-export function getEvent(id) {
-  return events[id];
+export function getConference(id) {
+  return conferences[id];
 }
 
-export function leaveEvent(id) {
-  events[id].going--;
-  events[id].userIsAttending = false;
-  const index = theOnlyUser.events.indexOf(id);
-  theOnlyUser.events.splice(index, 1);
+export function leaveConference(id) {
+  conferences[id].going--;
+  conferences[id].userIsAttending = false;
+  const index = theOnlyUser.conferences.indexOf(id);
+  theOnlyUser.conferences.splice(index, 1);
 }
-export function attendEvent(id) {
-  events[id].going++;
-  events[id].userIsAttending = true;
-  theOnlyUser.events.push(id);
+export function attendConference(id) {
+  conferences[id].going++;
+  conferences[id].userIsAttending = true;
+  theOnlyUser.conferences.push(id);
 }
 
-export function getAvailableEvents() {
-  return Object.keys(events).map((id) => events[id]);
+export function getAvailableConferences() {
+  return Object.keys(conferences).map((id) => conferences[id]);
 }

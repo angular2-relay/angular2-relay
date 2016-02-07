@@ -22,10 +22,10 @@ import {
 
 import {
   getUser,
-  getEvent,
-  getAvailableEvents,
-  attendEvent,
-  leaveEvent,
+  getConference,
+  getAvailableConferences,
+  attendConference,
+  leaveConference,
 } from './database';
 
 const { nodeInterface, nodeField } = nodeDefinitions(
@@ -33,19 +33,19 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     const { type, id } = fromGlobalId(globalId);
     if (type === 'User') {
       return getUser();
-    } else if (type === 'Event') {
-      return getEvent(id);
+    } else if (type === 'Conference') {
+      return getConference(id);
     }
     return null;
   },
-  (obj) => obj.firstName ? userType : eventType,
+  (obj) => obj.firstName ? userType : conferenceType,
 );
 
-const eventType = new GraphQLObjectType({
-  name: 'Event',
-  description: 'Some cool event',
+const conferenceType = new GraphQLObjectType({
+  name: 'Conference',
+  description: 'Some cool conference',
   fields: () => ({
-    id: globalIdField('Event'),
+    id: globalIdField('Conference'),
     name: {
       type: GraphQLString,
     },
@@ -65,8 +65,8 @@ const eventType = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
-const { connectionType: eventConnection, edgeType: eventEdgeType } =
-  connectionDefinitions({ name: 'Event', nodeType: eventType });
+const { connectionType: conferenceConnection, edgeType: conferenceEdgeType } =
+  connectionDefinitions({ name: 'Conference', nodeType: conferenceType });
 
 const userType = new GraphQLObjectType({
   name: 'User',
@@ -81,11 +81,11 @@ const userType = new GraphQLObjectType({
     dob: {
       type: GraphQLString,
     },
-    events: {
-      type: eventConnection,
+    conferences: {
+      type: conferenceConnection,
       args: connectionArgs,
       resolve: (user, args) => connectionFromArray(
-              user.events.map((id) => getEvent(id)),
+              user.conferences.map((id) => getConference(id)),
               args),
     },
   }),
@@ -100,9 +100,9 @@ const rootType = new GraphQLObjectType({
       type: userType,
       resolve: () => getUser(),
     },
-    availableEvents: {
-      type: new GraphQLList(eventType),
-      resolve: () => getAvailableEvents(),
+    availableConferences: {
+      type: new GraphQLList(conferenceType),
+      resolve: () => getAvailableConferences(),
     },
   }),
 });
@@ -119,67 +119,67 @@ const queryType = new GraphQLObjectType({
 });
 
 const attendMutation = mutationWithClientMutationId({
-  name: 'AttendEvent',
+  name: 'AttendConference',
   inputFields: {
-    eventId: {
+    conferenceId: {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
   outputFields: {
-    event: {
-      type: eventType,
-      resolve: ({ eventId }) => getEvent(fromGlobalId(eventId).id),
+    conference: {
+      type: conferenceType,
+      resolve: ({ conferenceId }) => getConference(fromGlobalId(conferenceId).id),
     },
     user: {
       type: userType,
       resolve: () => getUser(),
     },
-    eventEdge: {
-      type: eventEdgeType,
-      resolve: ({ eventId }) => {
-        const event = getEvent(fromGlobalId(eventId).id);
-        const eventsAttenendByUser = getUser().events.map((id) => getEvent(id));
+    conferenceEdge: {
+      type: conferenceEdgeType,
+      resolve: ({ conferenceId }) => {
+        const conference = getConference(fromGlobalId(conferenceId).id);
+        const conferencesAttenendByUser = getUser().conferences.map((id) => getConference(id));
         return {
-          cursor: cursorForObjectInConnection(eventsAttenendByUser, event),
-          node: event,
+          cursor: cursorForObjectInConnection(conferencesAttenendByUser, conference),
+          node: conference,
         };
       },
     },
   },
-  mutateAndGetPayload: ({ eventId }) => {
-    attendEvent(fromGlobalId(eventId).id);
+  mutateAndGetPayload: ({ conferenceId }) => {
+    attendConference(fromGlobalId(conferenceId).id);
     return {
-      eventId,
+      conferenceId,
     };
   },
 });
 
 
 const leaveMutation = mutationWithClientMutationId({
-  name: 'LeaveEvent',
+  name: 'LeaveConference',
   inputFields: {
-    eventId: {
+    conferenceId: {
       type: new GraphQLNonNull(GraphQLID),
     },
   },
   outputFields: {
-    event: {
-      type: eventType,
-      resolve: ({ eventId }) => getEvent(fromGlobalId(eventId).id),
+    conference: {
+      type: conferenceType,
+      resolve: ({ conferenceId }) => getConference(fromGlobalId(conferenceId).id),
     },
-    leftEventId: {
+    leftConferenceId: {
       type: GraphQLID,
-      resolve: ({ eventId }) => eventId,
+      resolve: ({ conferenceId }) => conferenceId,
     },
     user: {
       type: userType,
       resolve: () => getUser(),
     },
   },
-  mutateAndGetPayload: ({ eventId }) => {
-    leaveEvent(fromGlobalId(eventId).id);
+  mutateAndGetPayload: ({ conferenceId }) => {
+    leaveConference(fromGlobalId(conferenceId).id);
     return {
-      eventId,
+      conferenceId,
     };
   },
 });
@@ -187,8 +187,8 @@ const leaveMutation = mutationWithClientMutationId({
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    attendEvent: attendMutation,
-    leaveEvent: leaveMutation,
+    attendConference: attendMutation,
+    leaveConference: leaveMutation,
   }),
 });
 

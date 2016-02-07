@@ -9,25 +9,28 @@ import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy } from 'angula
 
 
 import Relay from 'generic-relay';
-import EventPlannerAppHomeRoute from './routes/EventPlannerAppHomeRoute';
+import ConferencePlannerAppHomeRoute from './routes/ConferencePlannerAppHomeRoute';
 
-import { EventPlannerApp, EventPlannerAppContainer } from './components/EventPlannerApp';
+import {
+  ConferencePlannerApp,
+  ConferencePlannerAppContainer,
+} from './components/ConferencePlannerApp';
 
 @Component({
   selector: 'app',
 })
 @View({
-  directives: [EventPlannerApp],
+  directives: [ConferencePlannerApp],
   template: `
   <div>
     <h1>Conference Planner</h1>
-    <event-planner-app [relayProps]="relayProps" [route]="route"></event-planner-app>
+    <conference-planner-app [relayProps]="relayProps" [route]="route"></conference-planner-app>
   </div>
   `,
 })
 class App {
   constructor(ngZone: NgZone) {
-    const route = new EventPlannerAppHomeRoute();
+    const route = new ConferencePlannerAppHomeRoute();
 
     const listener = ({ data }) => {
       ngZone.run(() => {
@@ -36,7 +39,7 @@ class App {
     };
 
     const rootContainer = new Relay.GenericRootContainer(listener);
-    rootContainer.update(EventPlannerAppContainer, route);
+    rootContainer.update(ConferencePlannerAppContainer, route);
 
     this.route = route;
   }

@@ -1,16 +1,16 @@
-input AttendEventInput {
-  eventId: ID!
+input AttendConferenceInput {
+  conferenceId: ID!
   clientMutationId: String!
 }
 
-type AttendEventPayload {
-  event: Event
+type AttendConferencePayload {
+  conference: Conference
   user: User
-  eventEdge: EventEdge
+  conferenceEdge: ConferenceEdge
   clientMutationId: String!
 }
 
-type Event implements Node {
+type Conference implements Node {
   id: ID!
   name: String
   description: String
@@ -19,31 +19,31 @@ type Event implements Node {
   userIsAttending: Boolean
 }
 
-type EventConnection {
+type ConferenceConnection {
   pageInfo: PageInfo!
-  edges: [EventEdge]
+  edges: [ConferenceEdge]
 }
 
-type EventEdge {
-  node: Event
+type ConferenceEdge {
+  node: Conference
   cursor: String!
 }
 
-input LeaveEventInput {
-  eventId: ID!
+input LeaveConferenceInput {
+  conferenceId: ID!
   clientMutationId: String!
 }
 
-type LeaveEventPayload {
-  event: Event
-  leftEventId: ID
+type LeaveConferencePayload {
+  conference: Conference
+  leftConferenceId: ID
   user: User
   clientMutationId: String!
 }
 
 type Mutation {
-  attendEvent(input: AttendEventInput!): AttendEventPayload
-  leaveEvent(input: LeaveEventInput!): LeaveEventPayload
+  attendConference(input: AttendConferenceInput!): AttendConferencePayload
+  leaveConference(input: LeaveConferenceInput!): LeaveConferencePayload
 }
 
 interface Node {
@@ -64,7 +64,7 @@ type Query {
 
 type Root {
   user: User
-  availableEvents: [Event]
+  availableConferences: [Conference]
 }
 
 type User implements Node {
@@ -72,5 +72,5 @@ type User implements Node {
   firstName: String
   lastName: String
   dob: String
-  events(after: String, first: Int, before: String, last: Int): EventConnection
+  conferences(after: String, first: Int, before: String, last: Int): ConferenceConnection
 }

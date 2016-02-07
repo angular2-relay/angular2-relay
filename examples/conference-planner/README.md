@@ -1,4 +1,4 @@
-# Angular2 Relay Example: Event-Planner
+# Angular2 Relay Example: Conference-Planner
 
 
 ## Running

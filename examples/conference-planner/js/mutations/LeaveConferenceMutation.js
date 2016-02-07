@@ -9,27 +9,27 @@ export default class LeaveConferenceMutation extends Relay.Mutation {
     `,
   };
   getMutation() {
-    return Relay.QL`mutation{ leaveEvent }`;
+    return Relay.QL`mutation{ leaveConference }`;
   }
 
   getVariables() {
-    const { id } = this.props.event;
+    const { id } = this.props.conference;
     return {
-      eventId: id,
+      conferenceId: id,
     };
   }
 
   getFatQuery() {
     return Relay.QL`
-      fragment on LeaveEventPayload {
-        event {
+      fragment on LeaveConferencePayload {
+        conference {
           going,
           userIsAttending
         },
         user {
-          events
+          conferences
         },
-        leftEventId
+        leftConferenceId
       }
     `;
   }
@@ -37,15 +37,15 @@ export default class LeaveConferenceMutation extends Relay.Mutation {
   getConfigs() {
     return [{
       type: 'FIELDS_CHANGE',
-      fieldIDs: { event: this.props.event.id },
+      fieldIDs: { conference: this.props.conference.id },
     },
     {
       type: 'RANGE_DELETE',
       parentName: 'user',
       parentID: this.props.user.id,
-      connectionName: 'events',
-      deletedIDFieldName: 'leftEventId',
-      pathToConnection: ['user', 'events'],
+      connectionName: 'conferences',
+      deletedIDFieldName: 'leftConferenceId',
+      pathToConnection: ['user', 'conferences'],
     }];
   }
 

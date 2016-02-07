@@ -4,10 +4,10 @@ import { View, Component, NgZone } from 'angular2/core';
 import AttendConferenceMutation from '../mutations/AttendConferenceMutation';
 import LeaveConferenceMutation from '../mutations/LeaveConferenceMutation';
 
-const EventItemContainer = Relay.createGenericContainer('EventItem', {
+const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
   fragments: {
-    event: () => Relay.QL`
-    fragment on Event {
+    conference: () => Relay.QL`
+    fragment on Conference {
       id,
       name,
       date,
@@ -26,55 +26,57 @@ const EventItemContainer = Relay.createGenericContainer('EventItem', {
 });
 
 @Component({
-  selector: 'event-item',
+  selector: 'conference-item',
 })
 @View({
   directives: [],
   template: `
   <div>
-    <h3>{{ relayData.event.name }}</h3>
-    <div>{{ relayData.event.date }}</div>
-    <div>{{ relayData.event.description }}</div>
-    <div>Attending: {{ relayData.event.going }}</div>
+    <h3>{{ relayData.conference.name }}</h3>
+    <div>{{ relayData.conference.date }}</div>
+    <div>{{ relayData.conference.description }}</div>
+    <div>Attending: {{ relayData.conference.going }}</div>
 
     <button
-      *ngIf="!relayData.event.userIsAttending"
+      *ngIf="!relayData.conference.userIsAttending"
       class="button-save"
-      (click)="onAttendEvent($event, relayData.event.id)">
+      (click)="onAttendConference($event, relayData.conference.id)">
       Attend
     </button>
 
     <button
-      *ngIf="relayData.event.userIsAttending"
+      *ngIf="relayData.conference.userIsAttending"
       class="button-cancel"
-      (click)="onLeaveEvent($event, relayData.event.id)">
+      (click)="onLeaveConference($event, relayData.conference.id)">
       Leave
     </button>
   </div>
   `,
 })
 @connectRelay({
-  container: EventItemContainer,
+  container: ConferenceItemContainer,
 })
-class EventItem {
+class ConferenceItem {
   constructor(ngZone: NgZone) {
     this.initWithRelay(ngZone);
     this.relayData = {};
   }
 
-  onAttendEvent($event) {
+  onAttendConference($event) {
     Relay.Store.commitUpdate(
-      new AttendConferenceMutation({ event: this.relayData.event, user: this.relayData.user })
+      new AttendConferenceMutation({ conference: this.relayData.conference,
+        user: this.relayData.user })
     );
     $event.stopPropagation();
   }
 
-  onLeaveEvent($event) {
+  onLeaveConference($event) {
     Relay.Store.commitUpdate(
-      new LeaveConferenceMutation({ event: this.relayData.event, user: this.relayData.user })
+      new LeaveConferenceMutation({ conference: this.relayData.conference,
+        user: this.relayData.user })
     );
     $event.stopPropagation();
   }
 }
 
-export { EventItem, EventItemContainer };
+export { ConferenceItem, ConferenceItemContainer };
