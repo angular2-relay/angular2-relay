@@ -55,7 +55,7 @@ const conferenceType = new GraphQLObjectType({
     date: {
       type: GraphQLString,
     },
-    going: {
+    attendance: {
       type: GraphQLInt,
     },
     userIsAttending: {

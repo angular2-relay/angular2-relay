@@ -3,7 +3,7 @@ const ngNl = {
   name: 'NG-NL',
   description: 'Angular conf',
   date: '2016-02-18',
-  going: 120,
+  attendance: 120,
   userIsAttending: true,
 };
 const reactEurope = {
@@ -11,7 +11,7 @@ const reactEurope = {
   name: 'ReactEurope 2016',
   description: 'The original EU React conf',
   date: '2016-06-02',
-  going: 250,
+  attendance: 250,
   userIsAttending: false,
 };
 const empireJS = {
@@ -19,7 +19,7 @@ const empireJS = {
   name: 'EmpireJS 2016',
   description: 'JS Conf in NY',
   date: 'May 2016',
-  going: 450,
+  attendance: 450,
   userIsAttending: true,
 };
 
@@ -28,7 +28,7 @@ const ngEurope = {
   name: 'NG-Europe',
   description: 'Original EU NG conf',
   date: '2016-20-25',
-  going: 99,
+  attendance: 99,
   userIsAttending: false,
 };
 
@@ -37,7 +37,7 @@ const angularConnect = {
   name: 'Angular Connect',
   description: 'Official EU NG conf',
   date: '2016-09-27',
-  going: 338,
+  attendance: 338,
   userIsAttending: false,
 };
 
@@ -46,7 +46,7 @@ const scotlandJs = {
   name: 'ScotlandJs',
   description: 'JS in Scotland',
   date: '2016-06-02',
-  going: 60,
+  attendance: 60,
   userIsAttending: true,
 };
 
@@ -76,13 +76,13 @@ export function getConference(id) {
 }
 
 export function leaveConference(id) {
-  conferences[id].going--;
+  conferences[id].attendance--;
   conferences[id].userIsAttending = false;
   const index = theOnlyUser.conferences.indexOf(id);
   theOnlyUser.conferences.splice(index, 1);
 }
 export function attendConference(id) {
-  conferences[id].going++;
+  conferences[id].attendance++;
   conferences[id].userIsAttending = true;
   theOnlyUser.conferences.push(id);
 }

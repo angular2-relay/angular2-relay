@@ -23,7 +23,7 @@ export default class LeaveConferenceMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on LeaveConferencePayload {
         conference {
-          going,
+          attendance,
           userIsAttending
         },
         user {

@@ -15,7 +15,7 @@ type Conference implements Node {
   name: String
   description: String
   date: String
-  going: Int
+  attendance: Int
   userIsAttending: Boolean
 }
 

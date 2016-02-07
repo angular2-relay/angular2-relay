@@ -316,7 +316,7 @@
               "deprecationReason": null
             },
             {
-              "name": "going",
+              "name": "attendance",
               "description": null,
               "args": [],
               "type": {

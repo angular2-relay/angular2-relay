@@ -9,7 +9,7 @@ const ConferenceItemDetailsContainer =
         fragment on Conference {
           date,
           description,
-          going,
+          attendance,
         }
        `,
     },
@@ -23,7 +23,7 @@ const ConferenceItemDetailsContainer =
   template: `
     <div>{{ relayData.conference.date }}</div>
     <div>{{ relayData.conference.description }}</div>
-    <div>Attending: {{ relayData.conference.going }}</div>
+    <div>Attending: {{ relayData.conference.attendance }}</div>
   `,
 })
 @connectRelay({
