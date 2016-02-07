@@ -1,6 +1,6 @@
 import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
-import { Component, View, NgZone } from 'angular2/core';
+import { Component, View } from 'angular2/core';
 import { ConferenceItem, ConferenceItemContainer } from './ConferenceItem';
 import { UserAccount, UserAccountContainer } from './UserAccount';
 
@@ -46,10 +46,8 @@ const ConferencePlannerAppContainer = Relay.createGenericContainer('ConferencePl
 })
 class ConferencePlannerApp {
 
-  constructor(ngZone: NgZone) {
-    this.initWithRelay(ngZone);
-    this.ngZone = ngZone;
-    this.relayData = { root: { user: {}, availableConferences: [] } };
+  constructor() {
+    this.initWithRelay({ root: { user: {}, availableConferences: [] } });
   }
 
 
