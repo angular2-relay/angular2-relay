@@ -1,4 +1,4 @@
-import { InputMetadata } from 'angular2/core';
+import { InputMetadata, NgZone } from 'angular2/core';
 
 export function connectRelay(config) {
   return (target) => {
@@ -21,7 +21,8 @@ export function connectRelay(config) {
       }
     }
 
-    function initWithRelay(ngZone, relayData = {}) {
+    function initWithRelay(relayData = {}) {
+      const ngZone = new NgZone({});
       const updateListener = (state) => {
         ngZone.run(() => this.relayData = state.data);
       };
