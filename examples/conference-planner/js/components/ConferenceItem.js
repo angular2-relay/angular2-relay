@@ -1,6 +1,6 @@
 import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
-import { View, Component, NgZone } from 'angular2/core';
+import { View, Component } from 'angular2/core';
 import AttendConferenceMutation from '../mutations/AttendConferenceMutation';
 import LeaveConferenceMutation from '../mutations/LeaveConferenceMutation';
 import { ConferenceItemDetails, ConferenceItemDetailsContainer } from './ConferenceItemDetails';
@@ -57,9 +57,8 @@ const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
   container: ConferenceItemContainer,
 })
 class ConferenceItem {
-  constructor(ngZone: NgZone) {
-    this.initWithRelay(ngZone);
-    this.relayData = {};
+  constructor() {
+    this.initWithRelay();
   }
 
   onAttendConference($event) {

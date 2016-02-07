@@ -1,6 +1,6 @@
 import Relay from 'generic-relay';
 import { connectRelay } from 'angular2-relay';
-import { Component, View, NgZone } from 'angular2/core';
+import { Component, View } from 'angular2/core';
 
 const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
   fragments: {
@@ -42,9 +42,8 @@ const UserAccountContainer = Relay.createGenericContainer('UserAccount', {
   container: UserAccountContainer,
 })
 class UserAccount {
-  constructor(ngZone: NgZone) {
-    this.initWithRelay(ngZone);
-    this.relayData = { user: {} };
+  constructor() {
+    this.initWithRelay({ user: {} });
   }
   getUser() {
     return this.relayData.user || { conferences: { } };

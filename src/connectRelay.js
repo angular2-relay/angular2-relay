@@ -1,9 +1,7 @@
-import { InputMetadata } from 'angular2/core';
+import { InputMetadata, NgZone } from 'angular2/core';
 
 export function connectRelay(config) {
   return (target) => {
-    const decoratedTarget = target;
-
     Reflect.defineMetadata('propMetadata', {
       relayProps: [new InputMetadata()],
       route: [new InputMetadata()],
@@ -23,18 +21,18 @@ export function connectRelay(config) {
       }
     }
 
-    function initWithRelay(ngZone) {
-      this.relayData = {};
-
+    function initWithRelay(relayData = {}) {
+      const ngZone = new NgZone({});
       const updateListener = (state) => {
         ngZone.run(() => this.relayData = state.data);
       };
       this.container = new config.container(updateListener);
+      this.relayData = relayData;
     }
 
-    decoratedTarget.prototype.ngOnChanges = ngOnChanges;
-    decoratedTarget.prototype.initWithRelay = initWithRelay;
+    target.prototype.ngOnChanges = ngOnChanges;
+    target.prototype.initWithRelay = initWithRelay;
 
-    return decoratedTarget;
+    return target;
   };
 }
