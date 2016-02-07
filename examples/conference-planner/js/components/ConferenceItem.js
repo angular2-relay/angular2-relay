@@ -36,6 +36,7 @@ const ConferenceItemContainer = Relay.createGenericContainer('ConferenceItem', {
       [route]="route"
       [relayProps]="{ conference: relayData.conference }">
     </conference-item-details>
+
     <button
       *ngIf="!relayData.conference.userIsAttending"
       class="button-save"
@@ -63,16 +64,20 @@ class ConferenceItem {
 
   onAttendConference($event) {
     Relay.Store.commitUpdate(
-      new AttendConferenceMutation({ conference: this.relayData.conference,
-        user: this.relayData.user })
+      new AttendConferenceMutation({
+        conference: this.relayData.conference,
+        user: this.relayData.user,
+      })
     );
     $event.stopPropagation();
   }
 
   onLeaveConference($event) {
     Relay.Store.commitUpdate(
-      new LeaveConferenceMutation({ conference: this.relayData.conference,
-        user: this.relayData.user })
+      new LeaveConferenceMutation({
+        conference: this.relayData.conference,
+        user: this.relayData.user,
+      })
     );
     $event.stopPropagation();
   }
