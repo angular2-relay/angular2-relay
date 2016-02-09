@@ -24,29 +24,29 @@ const compiler = webpack({
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          'presets': ['es2015'],
-          'plugins': [
+          presets: ['es2015'],
+          plugins: [
             './build/babelRelayPlugin',
             'angular2-annotations',
             'transform-decorators-legacy',
             'transform-class-properties',
-            'transform-flow-strip-types']
+            'transform-flow-strip-types'],
         },
-        test: /\.js$/
+        test: /\.js$/,
       },
       {
         test: /\.less$/,
-        loader: "style!css!less-loader",
-      }
+        loader: 'style!css!less-loader',
+      },
     ],
   },
-  output: {filename: 'app.js', path: '/'},
+  output: { filename: 'app.js', path: '/' },
 });
 const app = new WebpackDevServer(compiler, {
   contentBase: '/public/',
-  proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
+  proxy: { '/graphql': `http://localhost:${GRAPHQL_PORT}` },
   publicPath: '/js/',
-  stats: {colors: true},
+  stats: { colors: true },
 });
 // Serve static resources
 app.use('/', express.static(path.resolve(__dirname, 'public')));
