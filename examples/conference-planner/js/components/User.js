@@ -29,12 +29,12 @@ const UserAccountContainer = Relay.createGenericContainer('User', {
   template: `
     <div class="user">
       <h2>Hi {{ getUser().firstName }} {{ getUser().lastName }}</h2>
-      <div>
-        Conferences you attend:
-        <div *ngFor="#edge of getUser().attendingConferences.edges">
+      Conferences you attend:
+      <ul>
+        <li *ngFor="#edge of getUser().attendingConferences.edges">
           <strong>{{ edge.node.name }}</strong> with {{ edge.node.attendance - 1}} others
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   `,
 })

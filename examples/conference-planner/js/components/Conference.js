@@ -30,8 +30,9 @@ const ConferenceContainer = Relay.createGenericContainer('Conference', {
 @View({
   directives: [ConferenceDetails],
   template: `
-  <div>
-    <h3>{{ relayData.conference.name }}</h3>
+  <h3>{{ relayData.conference.name }}</h3>
+
+  <div class="conference-content">
     <conference-details
       [route]="route"
       [relayProps]="{ conference: relayData.conference }">
@@ -51,6 +52,7 @@ const ConferenceContainer = Relay.createGenericContainer('Conference', {
       Leave
     </button>
   </div>
+
   `,
 })
 @connectRelay({

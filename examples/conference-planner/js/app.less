@@ -7,12 +7,13 @@
 @bottonBorderColor: #34495e;
 @headerColor: #3498db;
 @fontColor: #2c3e50;
+@backgroundGrey: #ecf0f1;
 
 body {
   color: @fontColor;
   font-size: 16px;
   font-family: 'Merriweather', serif;
-  background-color: #ecf0f1;
+  background-color: white;
 }
 
 h1 {
@@ -20,32 +21,50 @@ h1 {
   font-size: 4em;
   color: @headerColor;
 }
+h3, h2 {
+  margin-top: 0;
+}
 
 .conference-planner-app {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap-reverse;
 
   user {
-    width: 33%;
+    flex-grow: 1;
+    flex-basis: 250px;
     padding-left: 2%;
     padding-right: 2%;
     background-color: white;
+    margin-bottom: 25px;
   }
 
   .conference-list {
-    width: 66%;
+    flex-grow: 2;
     display: flex;
     flex-wrap: wrap;
+    margin: -10px 0;
+    flex-basis: 250px;
+
+    .conference-content {
+      display: flex;
+      align-items: flex-end;
+    }
 
     conference {
-      padding: 2%;
-      min-width: 45%;
+      padding: 15px;
+      background-color: @backgroundGrey;
+      flex-basis: 250px;
+      margin: 10px;
+      flex-grow: 1;
+    }
+
+    conference-details {
+      flex-grow: 1;
     }
   }
 }
 
 button {
-  margin: 0 10px 0 0;
   padding: 0.5em 1em;
   font-size: 1em;
   line-height: 1.8;
