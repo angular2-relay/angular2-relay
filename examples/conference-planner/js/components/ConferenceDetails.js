@@ -8,8 +8,6 @@ const ConferenceDetailsContainer =
       conference: () => Relay.QL`
         fragment on Conference {
           date,
-          description,
-          attendance,
         }
        `,
     },
@@ -22,8 +20,6 @@ const ConferenceDetailsContainer =
   directives: [],
   template: `
     <div>{{ getDate(relayData.conference.date) | date }}</div>
-    <div>Attending: {{ relayData.conference.attendance }}</div>
-    <div>{{ relayData.conference.description }}</div>
   `,
 })
 @connectRelay({
