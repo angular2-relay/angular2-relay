@@ -21,9 +21,9 @@ const ConferenceDetailsContainer =
 @View({
   directives: [],
   template: `
-    <div>{{ relayData.conference.date }}</div>
-    <div>{{ relayData.conference.description }}</div>
+    <div>{{ getDate(relayData.conference.date) | date }}</div>
     <div>Attending: {{ relayData.conference.attendance }}</div>
+    <div>{{ relayData.conference.description }}</div>
   `,
 })
 @connectRelay({
@@ -33,6 +33,10 @@ class ConferenceDetails {
   constructor(ngZone: NgZone) {
     this.initWithRelay(ngZone);
     this.relayData = { conference: {} };
+  }
+
+  getDate(dateString) {
+    return new Date(dateString);
   }
 }
 
