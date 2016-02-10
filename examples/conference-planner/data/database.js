@@ -18,7 +18,7 @@ const empireJS = {
   id: '3',
   name: 'EmpireJS 2016',
   description: 'JS Conf in NY',
-  date: 'May 2016',
+  date: '2016-06-25',
   attendance: 450,
   userIsAttending: true,
 };
@@ -27,7 +27,7 @@ const ngEurope = {
   id: '4',
   name: 'NG-Europe',
   description: 'Original EU NG conf',
-  date: '2016-20-25',
+  date: '2016-10-25',
   attendance: 99,
   userIsAttending: false,
 };
