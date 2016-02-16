@@ -5,6 +5,7 @@ const ngNl = {
   date: '2016-02-18',
   attendance: 120,
   userIsAttending: true,
+  location: 'Amsterdam',
 };
 const reactEurope = {
   id: '2',
@@ -13,6 +14,7 @@ const reactEurope = {
   date: '2016-06-02',
   attendance: 250,
   userIsAttending: false,
+  location: 'Paris',
 };
 const empireJS = {
   id: '3',
@@ -21,6 +23,7 @@ const empireJS = {
   date: '2016-06-25',
   attendance: 450,
   userIsAttending: true,
+  location: 'New York',
 };
 
 const ngEurope = {
@@ -30,6 +33,7 @@ const ngEurope = {
   date: '2016-10-25',
   attendance: 99,
   userIsAttending: false,
+  location: 'Paris',
 };
 
 const angularConnect = {
@@ -39,6 +43,7 @@ const angularConnect = {
   date: '2016-09-27',
   attendance: 338,
   userIsAttending: false,
+  location: 'London',
 };
 
 const scotlandJs = {
@@ -48,6 +53,7 @@ const scotlandJs = {
   date: '2016-06-02',
   attendance: 60,
   userIsAttending: true,
+  location: 'Edinburgh',
 };
 
 const conferences = {

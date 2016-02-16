@@ -58,6 +58,9 @@ const conferenceType = new GraphQLObjectType({
     attendance: {
       type: GraphQLInt,
     },
+    location: {
+      type: GraphQLString,
+    },
     userIsAttending: {
       type: GraphQLBoolean,
     },

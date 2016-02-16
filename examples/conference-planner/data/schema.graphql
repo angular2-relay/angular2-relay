@@ -16,6 +16,7 @@ type Conference implements Node {
   description: String
   date: String
   attendance: Int
+  location: String
   userIsAttending: Boolean
 }
 
